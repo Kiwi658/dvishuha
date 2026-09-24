@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Привычки — Ритм</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<!-- Bootstrap подключается первым, тема стенда — после него и переопределяет нужное -->
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body id="top">
+
+<header class="page-head navbar navbar-expand-lg">
+  <div class="container head-inner d-flex flex-wrap align-items-center gap-3">
+    <a class="brand d-inline-flex align-items-center gap-2" href="index.html" aria-label="Ритм — на главную">
+      <svg width="34" height="34" class="logo-mark" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+        <circle class="cycle" cx="17" cy="17" r="12.1" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+        <g class="beats" fill="currentColor">
+          <rect x="9.8" y="18" width="3.4" height="5" rx="1.7"/>
+          <rect x="15.3" y="14.5" width="3.4" height="8.5" rx="1.7"/>
+          <rect x="20.8" y="11.5" width="3.4" height="11.5" rx="1.7"/>
+        </g>
+        <circle class="beat-now" cx="25.9" cy="8.8" r="2.7" fill="var(--accent)"/>
+      </svg>
+      <span class="brand-name">Ритм</span>
+    </a>
+    <nav aria-label="Основное меню">
+      <ul class="nav mainnav gap-4">
+        <li class="nav-item"><a class="nav-link" href="index.html" aria-current="page">Привычки</a></li>
+        <li class="nav-item"><a class="nav-link" href="exchange.html">Импорт и экспорт</a></li>
+      </ul>
+    </nav>
+    <div class="userbox d-flex align-items-center gap-2 ms-auto">
+      <span class="who">Гость</span>
+      <a class="btn btn-neutral btn-sm" href="login.html">Войти</a>
+      <a class="btn btn-primary btn-sm" href="register.html">Регистрация</a>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+<section class="hero">
+  <div class="container hero-inner">
+    <h1>Трекер привычек <em>«Ритм»</em></h1>
+    <p>Отмечайте выполнение, читайте комментарии участников и выбирайте, к чему присоединиться</p>
+  </div>
+  <div class="hero-spacer"></div>
+</section>
+
+<section class="band">
+  <div class="container">
+    <form method="get" action="index.html" role="search">
+      <div class="filterbar row g-3 align-items-end">
+        <div class="field col-12 col-sm-6 col-lg-auto d-flex flex-column gap-2">
+          <label class="form-label" for="q">Название</label>
+          <input class="form-control" id="q" name="q" type="search" value="" placeholder="Например, вода">
+        </div>
+        <div class="field col-12 col-sm-6 col-lg-auto d-flex flex-column gap-2">
+          <label class="form-label" for="cat">Категория</label>
+          <select class="form-select" id="cat" name="cat">
+            <option selected>Все категории</option>
+            <option>Здоровье</option>
+            <option>Спорт</option>
+            <option>Учёба</option>
+            <option>Быт</option>
+          </select>
+        </div>
+        <div class="field col-12 col-sm-6 col-lg-auto d-flex flex-column gap-2">
+          <label class="form-label" for="part">Участие</label>
+          <select class="form-select" id="part" name="part">
+            <option selected>Все</option>
+            <option>Придерживаюсь</option>
+            <option>Не придерживаюсь</option>
+          </select>
+        </div>
+        <div class="field field--range col-12 col-sm-6 col-lg-auto d-flex flex-column gap-2">
+          <span class="form-label" id="followers-title">Сколько придерживается</span>
+          <div class="range-inputs d-flex align-items-center gap-2" role="group" aria-labelledby="followers-title">
+            <label class="visually-hidden" for="followers-min">Придерживается, от</label>
+            <input class="form-control" id="followers-min" name="followers_min" type="number" min="0" step="1" inputmode="numeric" placeholder="от" value="">
+            <span class="dash" aria-hidden="true">—</span>
+            <label class="visually-hidden" for="followers-max">Придерживается, до</label>
+            <input class="form-control" id="followers-max" name="followers_max" type="number" min="0" step="1" inputmode="numeric" placeholder="до" value="">
+          </div>
+        </div>
+        <div class="field field--range col-12 col-sm-6 col-lg-auto d-flex flex-column gap-2">
+          <span class="form-label" id="done-title">Выполнено всеми</span>
+          <div class="range-inputs d-flex align-items-center gap-2" role="group" aria-labelledby="done-title">
+            <label class="visually-hidden" for="done-min">Выполнено всеми, от</label>
+            <input class="form-control" id="done-min" name="done_min" type="number" min="0" step="1" inputmode="numeric" placeholder="от" value="">
+            <span class="dash" aria-hidden="true">—</span>
+            <label class="visually-hidden" for="done-max">Выполнено всеми, до</label>
+            <input class="form-control" id="done-max" name="done_max" type="number" min="0" step="1" inputmode="numeric" placeholder="до" value="">
+          </div>
+        </div>
+        <div class="field field--check form-check col-12 col-lg-auto d-flex flex-row align-items-center gap-2">
+          <input class="form-check-input" id="with-comments" name="with_comments" type="checkbox" value="1">
+          <label class="form-check-label" for="with-comments">Только с комментариями</label>
+        </div>
+        <div class="filter-actions col-12 col-lg-auto d-flex gap-2">
+          <button type="submit" class="btn btn-primary">Применить</button>
+          <a class="btn btn-neutral" href="index.html">Сбросить</a>
+        </div>
+      </div>
+
+      <div class="listbar d-flex flex-wrap align-items-center justify-content-between">
+        <p class="count-note">Найдено: <b>8 привычек</b>. Показаны все.</p>
+        <div class="field col-12 col-md-auto ms-md-auto d-flex flex-column flex-sm-row align-items-sm-center gap-2">
+          <label class="form-label" for="sort">Сортировка</label>
+          <select class="form-select" id="sort" name="sort">
+            <option selected>По названию: А–Я</option>
+            <option>По числу выполнений: сначала больше</option>
+          </select>
+        </div>
+      </div>
+    </form>
+
+    <!-- Альтернатива списку. В рабочей вёрстке выводится ЛИБО этот блок, ЛИБО .cards с навигацией,
+         в зависимости от того, нашлись ли привычки. -->
+    <div class="empty-state demo-alt" data-demo="Вместо списка: ничего не найдено">
+      <h2>Ничего не найдено</h2>
+      <p>Ни одна привычка не подходит под выбранные условия. Измените фильтр или сбросьте его.</p>
+      <a class="btn btn-neutral" href="index.html">Сбросить фильтр</a>
+    </div>
+
+    <div class="row cards g-4">
+
+      <div class="col-12">
+        <article class="card h-100 d-flex flex-column flex-lg-row card--wide" data-cat="sport">
+          <div class="card-media">
+            <span class="media-chip badge"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="12" r="2.6"/><path d="M8.6 12h6.8"/></svg>Спорт</span>
+            <a href="habit.html"><img width="1344" height="768" class="img-fluid" src="assets/img/habit-walking-16bit.jpg" alt="Пиксель-арт: аллея в парке со скамейками и фонарями, человек уходит по дорожке вдаль"></a>
+          </div>
+          <div class="card-body d-flex flex-column gap-3">
+            <h2 class="card-title d-flex align-items-center gap-2">
+              <span class="habit-icon"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="12" r="2.6"/><path d="M8.6 12h6.8"/></svg></span>
+              <a href="habit.html">Гулять десять тысяч шагов</a>
+            </h2>
+            <p class="card-meta"><span class="cat-name">Спорт</span></p>
+            <p class="desc">Проходить не меньше десяти тысяч шагов за день: часть дороги пешком и прогулка после ужина.</p>
+            <div class="counters d-flex flex-wrap gap-4">
+              <span>Придерживаются<b>187</b></span>
+              <span>Выполнено всеми<b>4 268</b></span>
+            </div>
+            <div class="card-actions d-flex flex-wrap align-items-center">
+              <button type="button" class="btn btn-positive">Начать</button>
+            </div>
+            <div class="comments d-flex flex-column gap-2">
+              <div class="comment"><div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Павел Реутов</span><span>10 сентября</span></div>Выхожу на остановку раньше — норма набирается сама собой.</div>
+              <a class="all-comments d-inline-flex align-items-center gap-1" href="habit.html#comments">Все комментарии (7) <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 7l5 5-5 5M4 12h14"/></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <article class="card h-100 d-flex" data-cat="home">
+          <div class="card-media">
+            <span class="media-chip badge"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11 12 4l8 7M6 10v9h5v-5h2v5h5v-9"/></svg>Быт</span>
+            <a href="habit.html"><img width="1344" height="768" class="img-fluid" src="assets/img/habit-bedmaking-16bit.jpg" alt="Пиксель-арт: заправленная кровать с синим покрывалом и белыми подушками между двумя окнами"></a>
+          </div>
+          <div class="card-body d-flex flex-column gap-3">
+            <h2 class="card-title d-flex align-items-center gap-2">
+              <span class="habit-icon"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11 12 4l8 7M6 10v9h5v-5h2v5h5v-9"/></svg></span>
+              <a href="habit.html">Заправлять постель утром</a>
+            </h2>
+            <p class="card-meta"><span class="cat-name">Быт</span></p>
+            <p class="desc">Застилать кровать сразу после подъёма. Маленькое дело, с которого начинается порядок в комнате.</p>
+            <div class="counters d-flex flex-wrap gap-4">
+              <span>Придерживаются<b>61</b></span>
+              <span>Выполнено всеми<b>803</b></span>
+            </div>
+            <div class="card-actions d-flex flex-wrap align-items-center">
+              <button type="button" class="btn btn-positive btn-count position-relative" aria-label="Отметить выполнение привычки «Заправлять постель утром»" aria-describedby="count-habit-bedmaking" title="Выполнено вами: 12">+1<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark" id="count-habit-bedmaking"><span class="visually-hidden">Выполнено вами: </span>12</span></button>
+              <button type="button" class="btn btn-neutral ms-auto">Бросить</button>
+            </div>
+            <p class="last-done">Последнее «+1»: сегодня, 07:20</p>
+            <div class="comments d-flex flex-column gap-2">
+              <div class="comment"><div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Светлана Нечаева</span><span>8 сентября</span></div>Минута утром — и вечером комната выглядит убранной.</div>
+              <a class="all-comments d-inline-flex align-items-center gap-1" href="habit.html#comments">Все комментарии (4) <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 7l5 5-5 5M4 12h14"/></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <article class="card h-100 d-flex" data-cat="health">
+          <div class="card-media">
+            <span class="media-chip badge"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3C12 3 6 10.5 6 15a6 6 0 0 0 12 0c0-4.5-6-12-6-12Z"/></svg>Здоровье</span>
+            <a href="habit.html"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-meditation-16bit.png" alt="Пиксель-арт: человек медитирует перед сном в комнате с ночным окном"></a>
+          </div>
+          <div class="card-body d-flex flex-column gap-3">
+            <h2 class="card-title d-flex align-items-center gap-2">
+              <span class="habit-icon"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg></span>
+              <a href="habit.html">Медитация перед сном</a>
+            </h2>
+            <p class="card-meta"><span class="cat-name">Здоровье</span></p>
+            <p class="desc">Десять минут тишины и дыхательных упражнений перед сном. Помогает отложить телефон и быстрее засыпать.</p>
+            <div class="counters d-flex flex-wrap gap-4">
+              <span>Придерживаются<b>54</b></span>
+              <span>Выполнено всеми<b>611</b></span>
+            </div>
+            <div class="card-actions d-flex flex-wrap align-items-center">
+              <button type="button" class="btn btn-positive">Начать</button>
+            </div>
+            <div class="comments d-flex flex-column gap-2">
+              <div class="comment">
+                <div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Александра Ветрова</span><span>8 сентября</span></div>
+                Первые вечера было скучно сидеть в тишине, мысли лезли одна за другой. К концу второй недели стало заметно…
+                <a class="all-comments d-inline-flex align-items-center gap-1" href="habit.html#comments">Читать полностью</a>
+              </div>
+              <a class="all-comments d-inline-flex align-items-center gap-1" href="habit.html#comments">Все комментарии (2) <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 7l5 5-5 5M4 12h14"/></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <article class="card h-100 d-flex" data-cat="health">
+          <div class="card-media">
+            <span class="media-chip badge"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3C12 3 6 10.5 6 15a6 6 0 0 0 12 0c0-4.5-6-12-6-12Z"/></svg>Здоровье</span>
+            <a href="habit.html"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-water-16bit.png" alt="Пиксель-арт: стакан свежей воды на столе у окна"></a>
+          </div>
+          <div class="card-body d-flex flex-column gap-3">
+            <h2 class="card-title d-flex align-items-center gap-2">
+              <span class="habit-icon"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3C12 3 6 10.5 6 15a6 6 0 0 0 12 0c0-4.5-6-12-6-12Z"/></svg></span>
+              <a href="habit.html">Пить воду</a>
+            </h2>
+            <p class="card-meta"><span class="cat-name">Здоровье</span></p>
+            <p class="desc">Выпивать достаточно воды в течение дня для самочувствия и концентрации.</p>
+            <div class="counters d-flex flex-wrap gap-4">
+              <span>Придерживаются<b>342</b></span>
+              <span>Выполнено всеми<b>12 480</b></span>
+            </div>
+            <div class="card-actions d-flex flex-wrap align-items-center">
+              <button type="button" class="btn btn-positive btn-count position-relative" aria-label="Отметить выполнение привычки «Пить воду»" aria-describedby="count-habit-water" title="Выполнено вами: 27">+1<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark" id="count-habit-water"><span class="visually-hidden">Выполнено вами: </span>27</span></button>
+              <button type="button" class="btn btn-neutral ms-auto">Бросить</button>
+            </div>
+            <p class="last-done">Последнее «+1»: сегодня, 08:40</p>
+            <div class="comments d-flex flex-column gap-2">
+              <div class="comment"><div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Марина Ковалёва</span><span>9 сентября</span></div>Уже неделя без пропусков, стало проще вставать утром.</div>
+              <a class="all-comments d-inline-flex align-items-center gap-1" href="habit.html#comments">Все комментарии (14) <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 7l5 5-5 5M4 12h14"/></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <article class="card h-100 d-flex" data-cat="home">
+          <div class="card-media">
+            <span class="media-chip badge"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11 12 4l8 7M6 10v9h5v-5h2v5h5v-9"/></svg>Быт</span>
+            <a href="habit.html"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-cleaning-16bit.png" alt="Пиксель-арт: человек сразу убирает за собой посуду"></a>
+          </div>
+          <div class="card-body d-flex flex-column gap-3">
+            <h2 class="card-title d-flex align-items-center gap-2">
+              <span class="habit-icon"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11 12 4l8 7M6 10v9h5v-5h2v5h5v-9"/></svg></span>
+              <a href="habit.html">Уборка за собой сразу</a>
+            </h2>
+            <p class="card-meta"><span class="cat-name">Быт</span></p>
+            <p class="desc">Не откладывать мелкую уборку: мыть посуду и убирать вещи сразу после использования.</p>
+            <div class="counters d-flex flex-wrap gap-4">
+              <span>Придерживаются<b>96</b></span>
+              <span>Выполнено всеми<b>1 042</b></span>
+            </div>
+            <div class="card-actions d-flex flex-wrap align-items-center">
+              <button type="button" class="btn btn-positive btn-count position-relative" aria-label="Отметить выполнение привычки «Уборка за собой сразу»" aria-describedby="count-habit-cleaning" title="Выполнено вами: 0">+1<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark" id="count-habit-cleaning"><span class="visually-hidden">Выполнено вами: </span>0</span></button>
+              <button type="button" class="btn btn-neutral ms-auto">Бросить</button>
+            </div>
+            <p class="last-done">Последнее «+1»: &mdash;</p>
+            <div class="comments d-flex flex-column gap-2">
+              <div class="comment"><div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Ольга Панова</span><span>3 сентября</span></div>Пять минут вечером — и не копится гора посуды.</div>
+              <a class="all-comments d-inline-flex align-items-center gap-1" href="habit.html#comments">Все комментарии (1) <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 7l5 5-5 5M4 12h14"/></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <article class="card h-100 d-flex" data-cat="sport">
+          <div class="card-media">
+            <span class="media-chip badge"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="12" r="2.6"/><path d="M8.6 12h6.8"/></svg>Спорт</span>
+            <a href="habit.html"><img width="1587" height="991" class="img-fluid" src="assets/img/habit-exercise-16bit.png" alt="Пиксель-арт: утренняя разминка на коврике у окна"></a>
+          </div>
+          <div class="card-body d-flex flex-column gap-3">
+            <h2 class="card-title d-flex align-items-center gap-2">
+              <span class="habit-icon"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="12" r="2.6"/><path d="M8.6 12h6.8"/></svg></span>
+              <a href="habit.html">Утренняя зарядка</a>
+            </h2>
+            <p class="card-meta"><span class="cat-name">Спорт</span></p>
+            <p class="desc">Десять минут разминки сразу после подъёма. Привычка только что добавлена в каталог.</p>
+            <div class="counters d-flex flex-wrap gap-4">
+              <span>Придерживаются<b>0</b></span>
+              <span>Выполнено всеми<b>0</b></span>
+            </div>
+            <div class="card-actions d-flex flex-wrap align-items-center">
+              <button type="button" class="btn btn-positive">Начать</button>
+            </div>
+            <div class="comments d-flex flex-column gap-2">
+              <p class="desc">Комментариев пока нет.</p>
+              <a class="all-comments d-inline-flex align-items-center gap-1" href="habit.html#comments">Все комментарии (0) <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 7l5 5-5 5M4 12h14"/></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <article class="card h-100 d-flex" data-cat="study">
+          <div class="card-media">
+            <span class="media-chip badge"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5c3-1 6-1 9 0v14c-3-1-6-1-9 0V5ZM21 5c-3-1-6-1-9 0v14c3-1 6-1 9 0V5Z"/></svg>Учёба</span>
+            <a href="habit.html"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-english-16bit.png" alt="Пиксель-арт: словарь и карточки для ежедневного изучения английских слов"></a>
+          </div>
+          <div class="card-body d-flex flex-column gap-3">
+            <h2 class="card-title d-flex align-items-center gap-2">
+              <span class="habit-icon"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5c3-1 6-1 9 0v14c-3-1-6-1-9 0V5ZM21 5c-3-1-6-1-9 0v14c3-1 6-1 9 0V5Z"/></svg></span>
+              <a href="habit.html">Учить английский по пятнадцать новых слов каждый день</a>
+            </h2>
+            <p class="card-meta"><span class="cat-name">Учёба</span></p>
+            <p class="desc">Повторять выученное и заучивать пятнадцать новых английских слов ежедневно.</p>
+            <div class="counters d-flex flex-wrap gap-4">
+              <span>Придерживаются<b>73</b></span>
+              <span>Выполнено всеми<b>12 345</b></span>
+            </div>
+            <div class="card-actions d-flex flex-wrap align-items-center">
+              <button type="button" class="btn btn-positive btn-count position-relative" aria-label="Отметить выполнение привычки «Учить английский по пятнадцать новых слов каждый день»" aria-describedby="count-habit-english" title="Выполнено вами: 214">+1<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark" id="count-habit-english"><span class="visually-hidden">Выполнено вами: </span>214</span></button>
+              <button type="button" class="btn btn-neutral ms-auto">Бросить</button>
+            </div>
+            <p class="last-done">Последнее «+1»: вчера, 21:15</p>
+            <div class="comments d-flex flex-column gap-2">
+              <div class="comment"><div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Игорь Седов</span><span>5 сентября</span></div>Приложение с карточками отлично заходит по утрам в дороге.</div>
+              <a class="all-comments d-inline-flex align-items-center gap-1" href="habit.html#comments">Все комментарии (3) <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 7l5 5-5 5M4 12h14"/></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-12">
+        <article class="card h-100 d-flex flex-column flex-lg-row-reverse card--wide-rev" data-cat="study">
+          <div class="card-media">
+            <span class="media-chip badge"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5c3-1 6-1 9 0v14c-3-1-6-1-9 0V5ZM21 5c-3-1-6-1-9 0v14c3-1 6-1 9 0V5Z"/></svg>Учёба</span>
+            <a href="habit.html"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-reading-16bit.png" alt="Пиксель-арт: человек читает книгу в уютном кресле у лампы"></a>
+          </div>
+          <div class="card-body d-flex flex-column gap-3">
+            <h2 class="card-title d-flex align-items-center gap-2">
+              <span class="habit-icon"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h9v14H4zM13 5h7v14h-7z"/></svg></span>
+              <a href="habit.html">Читать 20 минут в день</a>
+            </h2>
+            <p class="card-meta"><span class="cat-name">Учёба</span></p>
+            <p class="desc">Читать художественную или учебную литературу хотя бы двадцать минут в день.</p>
+            <div class="counters d-flex flex-wrap gap-4">
+              <span>Придерживаются<b>128</b></span>
+              <span>Выполнено всеми<b>956</b></span>
+            </div>
+            <div class="card-actions d-flex flex-wrap align-items-center">
+              <button type="button" class="btn btn-positive">Начать</button>
+            </div>
+            <div class="comments d-flex flex-column gap-2">
+              <p class="desc">Комментариев пока нет.</p>
+              <a class="all-comments d-inline-flex align-items-center gap-1" href="habit.html#comments">Все комментарии (0) <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 7l5 5-5 5M4 12h14"/></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+    </div>
+
+    <!-- Постраничная навигация выводится, только если страниц больше одной; иначе блока нет вовсе.
+         Пример: 100 страниц, открыта пятая. На узком экране соседние страницы скрываются. -->
+    <nav class="pager d-flex justify-content-center demo-alt" data-demo="Пример: 100 страниц, открыта 5-я" aria-label="Постраничная навигация по каталогу">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="index.html?page=4" aria-label="Предыдущая страница">←</a></li>
+        <li class="page-item"><a class="page-link" href="index.html?page=1" aria-label="Страница 1">1</a></li>
+        <li class="page-item disabled" aria-hidden="true"><span class="page-link">…</span></li>
+        <li class="page-item d-none d-sm-block"><a class="page-link" href="index.html?page=4" aria-label="Страница 4">4</a></li>
+        <li class="page-item active" aria-current="page"><span class="page-link">5</span></li>
+        <li class="page-item d-none d-sm-block"><a class="page-link" href="index.html?page=6" aria-label="Страница 6">6</a></li>
+        <li class="page-item disabled" aria-hidden="true"><span class="page-link">…</span></li>
+        <li class="page-item"><a class="page-link" href="index.html?page=100" aria-label="Страница 100">100</a></li>
+        <li class="page-item"><a class="page-link" href="index.html?page=6" aria-label="Следующая страница">→</a></li>
+      </ul>
+    </nav>
+  </div>
+</section>
+
+<div class="container">
+  <section class="recent" aria-labelledby="recent-title">
+    <h2 id="recent-title">Недавно просмотренные привычки</h2>
+    <div class="recent-row d-flex align-items-start gap-3">
+      <ul class="recent-list list-unstyled d-flex flex-nowrap gap-3 overflow-x-auto">
+        <li><span class="rthumb"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-cleaning-16bit.png" alt=""></span><a href="habit.html">Уборка за собой сразу</a></li>
+        <li><span class="rthumb"><img width="1587" height="991" class="img-fluid" src="assets/img/habit-exercise-16bit.png" alt=""></span><a href="habit.html">Утренняя зарядка</a></li>
+        <li><span class="rthumb"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-water-16bit.png" alt=""></span><a href="habit.html">Пить воду</a></li>
+        <li><span class="rthumb"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-english-16bit.png" alt=""></span><a href="habit.html">Учить английский по пятнадцать новых слов каждый день</a></li>
+        <li><span class="rthumb"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-meditation-16bit.png" alt=""></span><a href="habit.html">Медитация перед сном</a></li>
+        <li><span class="rthumb"><img width="1344" height="768" class="img-fluid" src="assets/img/habit-bedmaking-16bit.jpg" alt=""></span><a href="habit.html">Заправлять постель утром</a></li>
+        <li><span class="rthumb"><img width="1344" height="768" class="img-fluid" src="assets/img/habit-walking-16bit.jpg" alt=""></span><a href="habit.html">Гулять десять тысяч шагов</a></li>
+      </ul>
+      <button type="button" class="btn btn-neutral btn-icon" aria-label="Очистить историю просмотров" title="Очистить историю просмотров"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></button>
+    </div>
+  </section>
+
+  <!-- Альтернатива заполненной истории. В рабочей вёрстке выводится ЛИБО этот блок, ЛИБО заполненный
+       выше: пустая история — без кнопки очистки. -->
+  <section class="recent demo-alt" data-demo="Вместо истории: пустая" aria-labelledby="recent-empty-title">
+    <h2 id="recent-empty-title">Недавно просмотренные привычки</h2>
+    <p class="empty-note">Вы пока не просматривали привычки.</p>
+  </section>
+</div>
+
+</main>
+
+<footer class="pagefoot">
+  <div class="container">
+    <div class="foot-grid row g-4">
+      <div class="col-12 col-md-4">
+        <h2>Ритм</h2>
+        <p>Учебный демостенд для лабораторных работ по веб-разработке. Все данные, имена и счётчики на этой странице — демонстрационные.</p>
+      </div>
+      <div class="col-12 col-md-4">
+        <h2>Разделы</h2>
+        <ul class="list-unstyled d-flex flex-column gap-2">
+          <li><a href="index.html">Привычки</a></li>
+          <li><a href="exchange.html">Импорт и экспорт</a></li>
+          <li><a href="login.html">Войти</a></li>
+          <li><a href="register.html">Регистрация</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-4">
+        <h2>Для преподавателей</h2>
+        <p>Верстка покрывает темы ЛР 1–6: разметку и HTTP, каталог с БД, формы и CRUD, файлы и обмен, cookies и сессии, вход и права доступа.</p>
+      </div>
+    </div>
+    <p class="foot-bottom">© 2026 «Ритм» — демонстрационный стенд для учебных целей. Разработка — <a href="https://www.intervolga.ru/">ИНТЕРВОЛГА</a>.</p>
+  </div>
+</footer>
+
+<a class="to-top" href="#top" id="to-top" aria-label="Наверх страницы">
+  <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V6M6 12l6-6 6 6"/></svg>
+</a>
+
+<script src="assets/js/to-top.js"></script>
+
+<script src="assets/js/recent-scroll.js"></script>
+
+</body>
+</html>

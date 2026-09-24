@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UI-kit — Ритм</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<!-- Bootstrap подключается первым, тема стенда — после него и переопределяет нужное -->
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/theme.css">
+<style>
+  /* Оформление самой витрины UI-kit. Продуктовые страницы эти классы не используют. */
+  .kit-toc{padding:30px 0 6px;}
+  .kit-section{padding:34px 0 10px;scroll-margin-top:72px;}
+  .kit-section:last-child{padding-bottom:56px;}
+  .kit-title{font-size:1.6rem;margin-bottom:10px;}
+  .kit-note{color:var(--muted);font-size:.9rem;max-width:72ch;margin:0 0 16px;}
+  .kit-label{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700;margin:22px 0 10px;}
+  .panel>.kit-label:first-child,.panel>form>.kit-label:first-child{margin-top:0;}
+  .kit-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .kit-pre{background:var(--band);border-radius:14px;padding:12px 16px;font-size:.84rem;}
+  .kit-swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:0;}
+  .kit-swatches li{display:grid;grid-template-columns:44px 1fr;column-gap:12px;align-items:center;background:#fff;border-radius:18px;padding:12px;box-shadow:0 1px 2px rgba(29,29,31,.06);}
+  .kit-swatches .kit-chip{grid-row:span 2;width:44px;height:44px;border-radius:12px;}
+  .kit-swatches b{font-family:var(--bs-font-monospace);font-size:.84rem;letter-spacing:0;}
+  .kit-swatches span:last-child{font-size:.78rem;color:var(--muted);}
+  .kit-chip-demo{position:relative;display:inline-block;width:150px;height:56px;border-radius:14px;background:#e5f1ff;}
+  .kit-dl{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;font-size:.9rem;}
+  .kit-dl dt{font-weight:600;color:var(--muted);}
+  .kit-dl dd{margin:0;}
+  .kit-grid span{display:block;background:#e5f1ff;color:#003d7a;border-radius:10px;padding:10px;text-align:center;font-family:var(--bs-font-monospace);font-size:.8rem;}
+  #cards .cards{padding-bottom:28px;}
+</style>
+</head>
+<body id="top">
+
+<header class="page-head navbar navbar-expand-lg">
+  <div class="container head-inner d-flex flex-wrap align-items-center gap-3">
+    <a class="brand d-inline-flex align-items-center gap-2" href="index.html" aria-label="Ритм — на главную">
+      <svg width="34" height="34" class="logo-mark" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+        <circle class="cycle" cx="17" cy="17" r="12.1" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+        <g class="beats" fill="currentColor">
+          <rect x="9.8" y="18" width="3.4" height="5" rx="1.7"/>
+          <rect x="15.3" y="14.5" width="3.4" height="8.5" rx="1.7"/>
+          <rect x="20.8" y="11.5" width="3.4" height="11.5" rx="1.7"/>
+        </g>
+        <circle class="beat-now" cx="25.9" cy="8.8" r="2.7" fill="var(--accent)"/>
+      </svg>
+      <span class="brand-name">Ритм</span>
+    </a>
+    <nav aria-label="Основное меню">
+      <ul class="nav mainnav gap-4">
+        <li class="nav-item"><a class="nav-link" href="index.html">Привычки</a></li>
+        <li class="nav-item"><a class="nav-link" href="exchange.html">Импорт и экспорт</a></li>
+      </ul>
+    </nav>
+    <div class="userbox d-flex align-items-center gap-2 ms-auto">
+      <span class="who">Гость</span>
+      <a class="btn btn-neutral btn-sm" href="login.html">Войти</a>
+      <a class="btn btn-primary btn-sm" href="register.html">Регистрация</a>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+<section class="hero">
+  <div class="container hero-inner">
+    <h1>UI-kit <em>«Ритма»</em></h1>
+    <p>Все элементы интерфейса стенда на одной странице: HTML, компоненты Bootstrap 5.3 и собственные блоки темы. Собирайте новые страницы только из них.</p>
+  </div>
+  <div class="hero-spacer"></div>
+</section>
+
+<section class="band">
+  <div class="container">
+
+    <nav class="kit-toc" aria-label="Разделы UI-kit">
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a class="nav-link" href="#colors">Цвета</a></li>
+        <li class="nav-item"><a class="nav-link" href="#type">Типографика</a></li>
+        <li class="nav-item"><a class="nav-link" href="#buttons">Кнопки</a></li>
+        <li class="nav-item"><a class="nav-link" href="#forms">Формы</a></li>
+        <li class="nav-item"><a class="nav-link" href="#validation">Ошибки форм</a></li>
+        <li class="nav-item"><a class="nav-link" href="#alerts">Уведомления</a></li>
+        <li class="nav-item"><a class="nav-link" href="#badges">Бейджи</a></li>
+        <li class="nav-item"><a class="nav-link" href="#cards">Карточки</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tables">Таблицы</a></li>
+        <li class="nav-item"><a class="nav-link" href="#navigation">Навигация</a></li>
+        <li class="nav-item"><a class="nav-link" href="#lists">Списки</a></li>
+        <li class="nav-item"><a class="nav-link" href="#progress">Прогресс</a></li>
+        <li class="nav-item"><a class="nav-link" href="#dialogs">Диалоги</a></li>
+        <li class="nav-item"><a class="nav-link" href="#grid">Сетка</a></li>
+      </ul>
+    </nav>
+
+    <!-- ================= Цвета ================= -->
+    <section class="kit-section" id="colors" aria-labelledby="colors-title">
+      <h2 class="kit-title" id="colors-title">Цвета</h2>
+      <p class="kit-note">Переменные темы в <code>assets/css/theme.css</code>. Смысловые цвета Bootstrap (<code>primary</code>, <code>success</code>, <code>danger</code>, <code>warning</code>, <code>info</code>) приравнены к ним.</p>
+      <ul class="kit-swatches list-unstyled">
+        <li><span class="kit-chip" style="background:var(--ink)"></span><b>--ink</b><span>#1d1d1f · текст</span></li>
+        <li><span class="kit-chip" style="background:var(--muted)"></span><b>--muted</b><span>#6e6e73 · вторичный текст</span></li>
+        <li><span class="kit-chip" style="background:var(--band);box-shadow:inset 0 0 0 1px #e2e2e7"></span><b>--band</b><span>#f5f5f7 · фон полосы</span></li>
+        <li><span class="kit-chip" style="background:var(--accent)"></span><b>--accent</b><span>#0071e3 · primary, ссылки</span></li>
+        <li><span class="kit-chip" style="background:var(--positive)"></span><b>--positive</b><span>#1f8a3b · success, «+1»</span></li>
+        <li><span class="kit-chip" style="background:var(--danger)"></span><b>--danger</b><span>#d70015 · danger, ошибки</span></li>
+        <li><span class="kit-chip" style="background:var(--amber)"></span><b>--amber</b><span>#c9770a · warning</span></li>
+        <li><span class="kit-chip" style="background:var(--purple)"></span><b>--purple</b><span>#7d5cff · info</span></li>
+      </ul>
+    </section>
+
+    <!-- ================= Типографика ================= -->
+    <section class="kit-section" id="type" aria-labelledby="type-title">
+      <h2 class="kit-title" id="type-title">Типографика</h2>
+      <div class="row g-4">
+        <div class="col-12 col-lg-6">
+          <div class="panel">
+            <p class="kit-label">Заголовки h1–h6</p>
+            <p class="h1">Заголовок h1</p>
+            <p class="h2">Заголовок h2</p>
+            <p class="h3">Заголовок h3</p>
+            <p class="h4">Заголовок h4</p>
+            <p class="h5">Заголовок h5</p>
+            <p class="h6">Заголовок h6</p>
+            <p class="kit-note mb-0">Классы <code>.h1</code>…<code>.h6</code> дают вид заголовка без нарушения иерархии: на странице ровно один настоящий <code>&lt;h1&gt;</code>.</p>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="panel">
+            <p class="kit-label">Текст</p>
+            <p class="lead">Вводный абзац <code>.lead</code> — крупнее и приглушённее обычного.</p>
+            <p>Обычный абзац с <a href="#type">ссылкой</a>, <strong>важным</strong> и <em>выделенным</em> текстом, <mark>подсветкой</mark>, <small>мелким шрифтом</small>, <del>удалённым</del> и <ins>вставленным</ins> фрагментом, сокращением <abbr title="Лабораторная работа">ЛР</abbr>.</p>
+            <p>Код в строке: <code>&lt;button type="button"&gt;</code>. Клавиши: <kbd>Ctrl</kbd> + <kbd>K</kbd>. Числа моноширинным: <span class="mono">12 480</span>.</p>
+            <pre class="kit-pre overflow-x-auto"><code>&lt;a class="btn btn-primary" href="register.html"&gt;Регистрация&lt;/a&gt;</code></pre>
+            <figure class="mb-0">
+              <blockquote class="blockquote">
+                <p>Минута утром — и вечером комната выглядит убранной.</p>
+              </blockquote>
+              <figcaption class="blockquote-footer mb-0">Светлана Нечаева, <cite title="Заправлять постель утром">комментарий к привычке</cite></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Кнопки ================= -->
+    <section class="kit-section" id="buttons" aria-labelledby="buttons-title">
+      <h2 class="kit-title" id="buttons-title">Кнопки</h2>
+      <p class="kit-note">Ссылки выполняют навигацию, кнопки меняют данные. До подключения обработчиков у изменяющих кнопок <code>type="button"</code>.</p>
+      <div class="panel">
+        <p class="kit-label">Варианты</p>
+        <div class="kit-row">
+          <button type="button" class="btn btn-primary">Основное</button>
+          <button type="button" class="btn btn-positive">Позитивное</button>
+          <button type="button" class="btn btn-neutral">Нейтральное</button>
+          <button type="button" class="btn btn-danger">Удалить</button>
+          <button type="button" class="btn btn-danger solid">Удалить навсегда</button>
+          <a class="btn btn-link" href="#buttons">Кнопка-ссылка</a>
+        </div>
+        <p class="kit-label">Размеры</p>
+        <div class="kit-row">
+          <button type="button" class="btn btn-primary btn-sm">Маленькая</button>
+          <button type="button" class="btn btn-primary">Обычная</button>
+          <button type="button" class="btn btn-primary btn-lg">Большая</button>
+        </div>
+        <p class="kit-label">Со счётчиком, иконка, с иконкой, недоступные, на всю ширину</p>
+        <div class="kit-row">
+          <button type="button" class="btn btn-positive btn-count position-relative" aria-label="Отметить выполнение привычки «Пить воду»" aria-describedby="kit-count-water" title="Выполнено вами: 27">+1<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark" id="kit-count-water"><span class="visually-hidden">Выполнено вами: </span>27</span></button>
+          <button type="button" class="btn btn-neutral btn-icon" aria-label="Очистить историю просмотров" title="Очистить историю просмотров"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></button>
+          <a class="btn btn-neutral" href="#buttons">Все комментарии <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 7l5 5-5 5M4 12h14"/></svg></a>
+          <button type="button" class="btn btn-primary" disabled>Недоступна</button>
+          <button type="button" class="btn btn-neutral" disabled>Недоступна</button>
+        </div>
+        <div class="d-grid mt-3" style="max-width:360px">
+          <button type="button" class="btn btn-primary justify-content-center">Войти</button>
+        </div>
+        <p class="kit-label">Группа кнопок</p>
+        <div class="btn-group" role="group" aria-label="Порядок каталога">
+          <button type="button" class="btn btn-neutral">А–Я</button>
+          <button type="button" class="btn btn-neutral">Я–А</button>
+          <button type="button" class="btn btn-neutral">По выполнениям</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Формы ================= -->
+    <section class="kit-section" id="forms" aria-labelledby="forms-title">
+      <h2 class="kit-title" id="forms-title">Формы</h2>
+      <p class="kit-note">У каждого поля есть связанный <code>label</code>. Подсказки связываются с полем через <code>aria-describedby</code>.</p>
+      <form class="panel" action="ui-kit.html" method="get">
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-name">Название привычки</label>
+            <input class="form-control" id="kit-name" name="name" type="text" value="Пить воду" aria-describedby="kit-name-help">
+            <div class="form-text" id="kit-name-help">От 3 до 80 символов.</div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-cat">Категория</label>
+            <select class="form-select" id="kit-cat" name="cat">
+              <option>Здоровье</option>
+              <option>Спорт</option>
+              <option>Учёба</option>
+              <option>Быт</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-email">Email</label>
+            <input class="form-control" id="kit-email" name="email" type="email" autocomplete="email" placeholder="name@example.ru">
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-password">Пароль</label>
+            <input class="form-control" id="kit-password" name="password" type="password" autocomplete="new-password" aria-describedby="kit-password-help">
+            <div class="form-text" id="kit-password-help">Не короче 8 символов.</div>
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="kit-desc">Описание</label>
+            <textarea class="form-control" id="kit-desc" name="desc" rows="3">Выпивать достаточно воды в течение дня для самочувствия и концентрации.</textarea>
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label" for="kit-number">Число</label>
+            <input class="form-control" id="kit-number" name="number" type="number" min="0" step="1" value="12">
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label" for="kit-date">Дата</label>
+            <input class="form-control" id="kit-date" name="date" type="date" value="2026-09-12">
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label" for="kit-search">Поиск</label>
+            <input class="form-control" id="kit-search" name="q" type="search" placeholder="Например, вода">
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-file">Изображение</label>
+            <input class="form-control" id="kit-file" name="image" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="kit-file-help">
+            <div class="form-text" id="kit-file-help">JPG, PNG или WebP, до 2 МБ.</div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-multi">Несколько значений</label>
+            <select class="form-select" id="kit-multi" name="multi" multiple size="3">
+              <option selected>Здоровье</option>
+              <option>Спорт</option>
+              <option selected>Учёба</option>
+              <option>Быт</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-range">Ползунок</label>
+            <input class="form-range" id="kit-range" name="range" type="range" min="0" max="10" value="6">
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-group">Поле с подписью и кнопкой</label>
+            <div class="input-group">
+              <span class="input-group-text" id="kit-group-prefix">@</span>
+              <input class="form-control" id="kit-group" name="nick" type="text" placeholder="логин" aria-describedby="kit-group-prefix">
+              <button class="btn btn-primary" type="button">Проверить</button>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-disabled">Недоступное поле</label>
+            <input class="form-control" id="kit-disabled" type="text" value="Нельзя изменить" disabled>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-readonly">Только чтение</label>
+            <input class="form-control" id="kit-readonly" type="text" value="habit-water" readonly>
+          </div>
+          <div class="col-12 col-md-4">
+            <fieldset>
+              <legend>Флажки</legend>
+              <div class="form-check">
+                <input class="form-check-input" id="kit-check-1" name="notify" type="checkbox" checked>
+                <label class="form-check-label" for="kit-check-1">Показывать в каталоге</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" id="kit-check-2" name="comments" type="checkbox">
+                <label class="form-check-label" for="kit-check-2">Разрешить комментарии</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" id="kit-check-3" type="checkbox" disabled>
+                <label class="form-check-label" for="kit-check-3">Недоступный флажок</label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="col-12 col-md-4">
+            <fieldset>
+              <legend>Радиокнопки</legend>
+              <div class="form-check">
+                <input class="form-check-input" id="kit-radio-1" name="format" type="radio" value="csv" checked>
+                <label class="form-check-label" for="kit-radio-1">CSV</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" id="kit-radio-2" name="format" type="radio" value="json">
+                <label class="form-check-label" for="kit-radio-2">JSON</label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="col-12 col-md-4">
+            <fieldset>
+              <legend>Переключатели</legend>
+              <div class="form-check form-switch">
+                <input class="form-check-input" id="kit-switch-1" name="public" type="checkbox" role="switch" checked>
+                <label class="form-check-label" for="kit-switch-1">Опубликована</label>
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" id="kit-switch-2" name="archive" type="checkbox" role="switch">
+                <label class="form-check-label" for="kit-switch-2">В архиве</label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="col-12 d-flex flex-wrap gap-2">
+            <button type="button" class="btn btn-primary">Сохранить</button>
+            <a class="btn btn-neutral" href="ui-kit.html#forms">Отмена</a>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- ================= Ошибки форм ================= -->
+    <section class="kit-section" id="validation" aria-labelledby="validation-title">
+      <h2 class="kit-title" id="validation-title">Ошибки форм</h2>
+      <p class="kit-note">Общая ошибка сохранения показывается отдельно от ошибок полей, а введённые значения сохраняются. Ошибка всегда сопровождается текстом, а не только цветом.</p>
+      <form class="panel" action="ui-kit.html" method="get" novalidate>
+        <div class="alert alert-danger" role="alert">Не удалось сохранить изменения. Попробуйте еще раз.</div>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-bad-name">Название привычки</label>
+            <input class="form-control is-invalid" id="kit-bad-name" name="name" type="text" value="Во" aria-invalid="true" aria-describedby="kit-bad-name-error">
+            <div class="invalid-feedback" id="kit-bad-name-error">Название должно быть не короче 3 символов.</div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-bad-cat">Категория</label>
+            <select class="form-select is-invalid" id="kit-bad-cat" name="cat" aria-invalid="true" aria-describedby="kit-bad-cat-error">
+              <option selected>Выберите категорию</option>
+              <option>Здоровье</option>
+            </select>
+            <div class="invalid-feedback" id="kit-bad-cat-error">Выберите категорию из списка.</div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-bad-file">Изображение</label>
+            <input class="form-control is-invalid" id="kit-bad-file" name="image" type="file" aria-invalid="true" aria-describedby="kit-bad-file-error">
+            <div class="invalid-feedback" id="kit-bad-file-error">Файл больше 2 МБ. Выберите файл заново — браузер не сохраняет выбранный файл после ошибки.</div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label" for="kit-good-email">Email</label>
+            <input class="form-control is-valid" id="kit-good-email" name="email" type="email" value="marina@example.ru" aria-describedby="kit-good-email-ok">
+            <div class="valid-feedback" id="kit-good-email-ok">Адрес свободен.</div>
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="kit-bad-comment">Комментарий</label>
+            <textarea class="form-control is-invalid" id="kit-bad-comment" name="comment" rows="2" aria-invalid="true" aria-describedby="kit-bad-comment-error"></textarea>
+            <div class="invalid-feedback" id="kit-bad-comment-error">Напишите комментарий — пустой отправить нельзя.</div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- ================= Уведомления ================= -->
+    <section class="kit-section" id="alerts" aria-labelledby="alerts-title">
+      <h2 class="kit-title" id="alerts-title">Уведомления</h2>
+      <div class="panel">
+        <div class="alert alert-success" role="status">Привычка «Пить воду» сохранена.</div>
+        <div class="alert alert-danger" role="alert">Не удалось сохранить изменения. Попробуйте еще раз.</div>
+        <div class="alert alert-warning" role="status">В файле 12 записей, 2 из них пропущены: <a class="alert-link" href="#alerts">посмотреть ошибки</a>.</div>
+        <div class="alert alert-info" role="status">Импорт выполняется в демонстрационном режиме — данные не сохраняются.</div>
+        <div class="alert alert-primary mb-0" role="status">
+          <h3 class="alert-heading">Уведомление с заголовком</h3>
+          <p class="mb-0">Для сообщений из нескольких предложений, например итога импорта.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Бейджи ================= -->
+    <section class="kit-section" id="badges" aria-labelledby="badges-title">
+      <h2 class="kit-title" id="badges-title">Бейджи</h2>
+      <div class="panel">
+        <p class="kit-label">Насыщенные</p>
+        <div class="kit-row">
+          <span class="badge text-bg-primary">Новая</span>
+          <span class="badge text-bg-success">Опубликована</span>
+          <span class="badge text-bg-danger">Заблокирована</span>
+          <span class="badge text-bg-warning">На проверке</span>
+          <span class="badge text-bg-info">Учёба</span>
+          <span class="badge text-bg-dark">Черновик</span>
+        </div>
+        <p class="kit-label">Мягкие</p>
+        <div class="kit-row">
+          <span class="badge bg-primary-subtle text-primary-emphasis">Здоровье</span>
+          <span class="badge bg-success-subtle text-success-emphasis">Спорт</span>
+          <span class="badge bg-info-subtle text-info-emphasis">Учёба</span>
+          <span class="badge bg-warning-subtle text-warning-emphasis">Быт</span>
+          <span class="badge bg-danger-subtle text-danger-emphasis">Скрыт</span>
+        </div>
+        <p class="kit-label">В кнопке и на изображении</p>
+        <div class="kit-row">
+          <button type="button" class="btn btn-neutral">Комментарии <span class="badge text-bg-dark">14</span></button>
+          <span class="kit-chip-demo"><span class="media-chip badge"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3C12 3 6 10.5 6 15a6 6 0 0 0 12 0c0-4.5-6-12-6-12Z"/></svg>Здоровье</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Карточки ================= -->
+    <section class="kit-section" id="cards" aria-labelledby="cards-title">
+      <h2 class="kit-title" id="cards-title">Карточки</h2>
+      <p class="kit-note">Карточка привычки в трёх состояниях: гость, пользователь не придерживается, пользователь придерживается.</p>
+      <div class="row cards g-4">
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 d-flex" data-cat="health">
+            <div class="card-media">
+              <span class="media-chip badge"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3C12 3 6 10.5 6 15a6 6 0 0 0 12 0c0-4.5-6-12-6-12Z"/></svg>Здоровье</span>
+              <a href="habit.html"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-water-16bit.png" alt="Пиксель-арт: стакан свежей воды на столе у окна"></a>
+            </div>
+            <div class="card-body d-flex flex-column gap-3">
+              <p class="kit-label mb-0">Гость</p>
+              <h3 class="card-title d-flex align-items-center gap-2">
+                <span class="habit-icon"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3C12 3 6 10.5 6 15a6 6 0 0 0 12 0c0-4.5-6-12-6-12Z"/></svg></span>
+                <a href="habit.html">Пить воду</a>
+              </h3>
+              <p class="card-meta"><span class="cat-name">Здоровье</span></p>
+              <p class="desc">Выпивать достаточно воды в течение дня для самочувствия и концентрации.</p>
+              <div class="counters d-flex flex-wrap gap-4">
+                <span>Придерживаются<b>342</b></span>
+                <span>Выполнено всеми<b>12 480</b></span>
+              </div>
+              <div class="card-actions d-flex flex-wrap align-items-center">
+                <a class="btn btn-positive" href="login.html">Начать</a>
+              </div>
+              <div class="comments d-flex flex-column gap-2">
+                <div class="comment"><div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Марина Ковалёва</span><span>9 сентября</span></div>Уже неделя без пропусков, стало проще вставать утром.</div>
+                <a class="all-comments d-inline-flex align-items-center gap-1" href="habit.html#comments">Все комментарии (14) <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 7l5 5-5 5M4 12h14"/></svg></a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 d-flex" data-cat="study">
+            <div class="card-media">
+              <span class="media-chip badge"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5c3-1 6-1 9 0v14c-3-1-6-1-9 0V5ZM21 5c-3-1-6-1-9 0v14c3-1 6-1 9 0V5Z"/></svg>Учёба</span>
+              <a href="habit.html"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-reading-16bit.png" alt="Пиксель-арт: человек читает книгу в уютном кресле у лампы"></a>
+            </div>
+            <div class="card-body d-flex flex-column gap-3">
+              <p class="kit-label mb-0">Не придерживается</p>
+              <h3 class="card-title d-flex align-items-center gap-2">
+                <span class="habit-icon"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h9v14H4zM13 5h7v14h-7z"/></svg></span>
+                <a href="habit.html">Читать 20 минут в день</a>
+              </h3>
+              <p class="card-meta"><span class="cat-name">Учёба</span></p>
+              <p class="desc">Читать художественную или учебную литературу хотя бы двадцать минут в день.</p>
+              <div class="counters d-flex flex-wrap gap-4">
+                <span>Придерживаются<b>128</b></span>
+                <span>Выполнено всеми<b>956</b></span>
+              </div>
+              <div class="card-actions d-flex flex-wrap align-items-center">
+                <button type="button" class="btn btn-positive">Начать</button>
+              </div>
+              <div class="comments d-flex flex-column gap-2">
+                <p class="desc">Комментариев пока нет.</p>
+                <a class="all-comments d-inline-flex align-items-center gap-1" href="habit.html#comments">Все комментарии (0) <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 7l5 5-5 5M4 12h14"/></svg></a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+          <article class="card h-100 d-flex" data-cat="home">
+            <div class="card-media">
+              <span class="media-chip badge"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11 12 4l8 7M6 10v9h5v-5h2v5h5v-9"/></svg>Быт</span>
+              <a href="habit.html"><img width="1344" height="768" class="img-fluid" src="assets/img/habit-bedmaking-16bit.jpg" alt="Пиксель-арт: заправленная кровать с синим покрывалом и белыми подушками между двумя окнами"></a>
+            </div>
+            <div class="card-body d-flex flex-column gap-3">
+              <p class="kit-label mb-0">Придерживается</p>
+              <h3 class="card-title d-flex align-items-center gap-2">
+                <span class="habit-icon"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 11 12 4l8 7M6 10v9h5v-5h2v5h5v-9"/></svg></span>
+                <a href="habit.html">Заправлять постель утром</a>
+              </h3>
+              <p class="card-meta"><span class="cat-name">Быт</span></p>
+              <p class="desc">Застилать кровать сразу после подъёма. Маленькое дело, с которого начинается порядок в комнате.</p>
+              <div class="counters d-flex flex-wrap gap-4">
+                <span>Придерживаются<b>61</b></span>
+                <span>Выполнено всеми<b>803</b></span>
+              </div>
+              <div class="card-actions d-flex flex-wrap align-items-center">
+                <button type="button" class="btn btn-positive btn-count position-relative" aria-label="Отметить выполнение привычки «Заправлять постель утром»" aria-describedby="count-habit-bedmaking" title="Выполнено вами: 12">+1<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark" id="count-habit-bedmaking"><span class="visually-hidden">Выполнено вами: </span>12</span></button>
+                <button type="button" class="btn btn-neutral ms-auto">Бросить</button>
+              </div>
+              <p class="last-done">Последнее «+1»: сегодня, 07:20</p>
+              <div class="comments d-flex flex-column gap-2">
+                <div class="comment"><div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Светлана Нечаева</span><span>8 сентября</span></div>Минута утром — и вечером комната выглядит убранной.</div>
+                <a class="all-comments d-inline-flex align-items-center gap-1" href="habit.html#comments">Все комментарии (4) <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M13 7l5 5-5 5M4 12h14"/></svg></a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+      </div>
+
+      <div class="row g-4">
+        <div class="col-12 col-lg-6">
+          <p class="kit-label">Пустой результат</p>
+          <div class="empty-state mb-0">
+            <h3>Ничего не найдено</h3>
+            <p>Попробуйте изменить название или сбросить фильтр.</p>
+            <a class="btn btn-neutral" href="index.html">Сбросить фильтр</a>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <p class="kit-label">Простая карточка Bootstrap</p>
+          <div class="card">
+            <div class="card-body d-flex flex-column gap-3">
+              <h3 class="card-title d-flex align-items-center gap-2">Экспорт каталога</h3>
+              <p class="desc mb-0">Скачайте все привычки в CSV или JSON — формат совпадает с импортом.</p>
+              <div class="d-flex flex-wrap gap-2">
+                <a class="btn btn-primary" href="#cards">Скачать CSV</a>
+                <a class="btn btn-neutral" href="#cards">Скачать JSON</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Таблицы ================= -->
+    <section class="kit-section" id="tables" aria-labelledby="tables-title">
+      <h2 class="kit-title" id="tables-title">Таблицы</h2>
+      <p class="kit-note">Широкая таблица прокручивается внутри своего контейнера <code>.table-responsive</code>, а не вся страница.</p>
+      <div class="table-responsive table-wrap">
+        <table class="table table-striped table-hover align-middle">
+          <caption>Привычки каталога — 4 из 8</caption>
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Название</th>
+              <th scope="col">Категория</th>
+              <th scope="col" class="text-end">Придерживаются</th>
+              <th scope="col" class="text-end">Выполнено всеми</th>
+              <th scope="col">Статус</th>
+              <th scope="col">Действия</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">1</td>
+              <td><a href="403.html">Пить воду</a></td>
+              <td>Здоровье</td>
+              <td class="text-end mono">342</td>
+              <td class="text-end mono">12 480</td>
+              <td><span class="badge bg-success-subtle text-success-emphasis">Опубликована</span></td>
+              <td class="text-end text-nowrap">
+                <a class="btn btn-neutral btn-sm" href="403.html">Изменить</a>
+                <a class="btn btn-danger btn-sm" href="403.html">Удалить</a>
+              </td>
+            </tr>
+            <tr>
+              <td class="mono">2</td>
+              <td><a href="403.html">Читать 20 минут в день</a></td>
+              <td>Учёба</td>
+              <td class="text-end mono">128</td>
+              <td class="text-end mono">956</td>
+              <td><span class="badge bg-success-subtle text-success-emphasis">Опубликована</span></td>
+              <td class="text-end text-nowrap">
+                <a class="btn btn-neutral btn-sm" href="403.html">Изменить</a>
+                <a class="btn btn-danger btn-sm" href="403.html">Удалить</a>
+              </td>
+            </tr>
+            <tr>
+              <td class="mono">3</td>
+              <td><a href="403.html">Утренняя зарядка</a></td>
+              <td>Спорт</td>
+              <td class="text-end mono">0</td>
+              <td class="text-end mono">0</td>
+              <td><span class="badge bg-warning-subtle text-warning-emphasis">Черновик</span></td>
+              <td class="text-end text-nowrap">
+                <a class="btn btn-neutral btn-sm" href="403.html">Изменить</a>
+                <a class="btn btn-danger btn-sm" href="403.html">Удалить</a>
+              </td>
+            </tr>
+            <tr>
+              <td class="mono">4</td>
+              <td><a href="403.html">Учить английский по пятнадцать новых слов каждый день</a></td>
+              <td>Учёба</td>
+              <td class="text-end mono">73</td>
+              <td class="text-end mono">12 345</td>
+              <td><span class="badge bg-success-subtle text-success-emphasis">Опубликована</span></td>
+              <td class="text-end text-nowrap">
+                <a class="btn btn-neutral btn-sm" href="403.html">Изменить</a>
+                <a class="btn btn-danger btn-sm" href="403.html">Удалить</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= Навигация ================= -->
+    <section class="kit-section" id="navigation" aria-labelledby="navigation-title">
+      <h2 class="kit-title" id="navigation-title">Навигация</h2>
+      <div class="panel">
+        <p class="kit-label">Хлебные крошки</p>
+        <nav aria-label="Хлебные крошки">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="403.html">Привычки</a></li>
+            <li class="breadcrumb-item"><a href="403.html">Пить воду</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Редактирование</li>
+          </ol>
+        </nav>
+
+        <p class="kit-label">Вкладки</p>
+        <ul class="nav nav-tabs">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#navigation">Импорт</a></li>
+          <li class="nav-item"><a class="nav-link" href="#navigation">Экспорт</a></li>
+          <li class="nav-item"><a class="nav-link disabled" aria-disabled="true">История</a></li>
+        </ul>
+
+        <p class="kit-label">Таблетки</p>
+        <ul class="nav nav-pills">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#navigation">Все</a></li>
+          <li class="nav-item"><a class="nav-link" href="#navigation">Мои</a></li>
+          <li class="nav-item"><a class="nav-link" href="#navigation">С комментариями</a></li>
+        </ul>
+
+        <p class="kit-label">Постраничная навигация</p>
+        <nav aria-label="Пример постраничной навигации">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#navigation" aria-label="Предыдущая страница">←</a></li>
+            <li class="page-item"><a class="page-link" href="#navigation">1</a></li>
+            <li class="page-item active" aria-current="page"><span class="page-link">2</span></li>
+            <li class="page-item"><a class="page-link" href="#navigation">3</a></li>
+            <li class="page-item disabled"><span class="page-link">…</span></li>
+            <li class="page-item"><a class="page-link" href="#navigation">9</a></li>
+            <li class="page-item"><a class="page-link" href="#navigation" aria-label="Следующая страница">→</a></li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ================= Списки ================= -->
+    <section class="kit-section" id="lists" aria-labelledby="lists-title">
+      <h2 class="kit-title" id="lists-title">Списки</h2>
+      <div class="row g-4">
+        <div class="col-12 col-lg-4">
+          <div class="panel h-100">
+            <p class="kit-label">Маркированный и нумерованный</p>
+            <ul>
+              <li>Название</li>
+              <li>Категория
+                <ul><li>вложенный пункт</li></ul>
+              </li>
+              <li>Описание</li>
+            </ul>
+            <ol class="mb-0">
+              <li>Выберите файл</li>
+              <li>Проверьте предпросмотр</li>
+              <li>Подтвердите импорт</li>
+            </ol>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <div class="panel h-100">
+            <p class="kit-label">Список определений</p>
+            <dl class="kit-dl mb-0">
+              <dt>Придерживаются</dt><dd class="mono">342</dd>
+              <dt>Выполнено всеми</dt><dd class="mono">12 480</dd>
+              <dt>Создана</dt><dd>1 сентября 2026</dd>
+              <dt>Изображение</dt><dd>habit-water-16bit.png</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4">
+          <p class="kit-label">Список-группа</p>
+          <div class="list-group">
+            <a class="list-group-item list-group-item-action active" aria-current="true" href="#lists">Привычки</a>
+            <a class="list-group-item list-group-item-action" href="#lists">Комментарии</a>
+            <a class="list-group-item list-group-item-action" href="#lists">Импорт и экспорт</a>
+            <span class="list-group-item disabled" aria-disabled="true">Пользователи — в следующем этапе</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4">
+        <p class="kit-label">Блок истории просмотров</p>
+        <section class="recent pb-0" aria-labelledby="kit-recent-title">
+          <h3 class="recent-title" id="kit-recent-title">Недавно просмотренные привычки</h3>
+          <div class="recent-row d-flex align-items-start gap-3">
+            <ul class="recent-list list-unstyled d-flex flex-nowrap gap-3 overflow-x-auto">
+              <li><span class="rthumb"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-cleaning-16bit.png" alt=""></span><a href="habit.html">Уборка за собой сразу</a></li>
+              <li><span class="rthumb"><img width="1587" height="991" class="img-fluid" src="assets/img/habit-exercise-16bit.png" alt=""></span><a href="habit.html">Утренняя зарядка</a></li>
+              <li><span class="rthumb"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-water-16bit.png" alt=""></span><a href="habit.html">Пить воду</a></li>
+            </ul>
+            <button type="button" class="btn btn-neutral btn-icon" aria-label="Очистить историю просмотров" title="Очистить историю просмотров"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ================= Прогресс ================= -->
+    <section class="kit-section" id="progress" aria-labelledby="progress-title">
+      <h2 class="kit-title" id="progress-title">Прогресс и загрузка</h2>
+      <div class="panel">
+        <p class="kit-label" id="kit-progress-1">Импорт: обработано 60 из 100 записей</p>
+        <div class="progress" role="progressbar" aria-labelledby="kit-progress-1" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar" style="width:60%"></div>
+        </div>
+        <p class="kit-label" id="kit-progress-2">Готово</p>
+        <div class="progress" role="progressbar" aria-labelledby="kit-progress-2" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+          <div class="progress-bar bg-success" style="width:100%"></div>
+        </div>
+        <p class="kit-label">Индикаторы ожидания</p>
+        <div class="kit-row">
+          <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Загрузка…</span></div>
+          <div class="spinner-grow text-success" role="status"><span class="visually-hidden">Загрузка…</span></div>
+          <button type="button" class="btn btn-primary" disabled>
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span role="status">Импортируем…</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Диалоги ================= -->
+    <section class="kit-section" id="dialogs" aria-labelledby="dialogs-title">
+      <h2 class="kit-title" id="dialogs-title">Диалоги и раскрывающиеся блоки</h2>
+      <div class="row g-4">
+        <div class="col-12 col-lg-6">
+          <p class="kit-label">Подтверждение удаления</p>
+          <p class="kit-note">Страницы <code>*-delete.html</code> показывают окно статично: разметка Bootstrap-модалки без JavaScript.</p>
+          <div class="modal position-static d-block" tabindex="-1" aria-labelledby="kit-modal-title">
+            <div class="modal-dialog m-0">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="kit-modal-title">Удалить привычку «Пить воду»?</h3>
+                </div>
+                <div class="modal-body">
+                  <p class="mb-0">Вместе с привычкой удалятся 14 комментариев и отметки 342 участников. Действие нельзя отменить.</p>
+                </div>
+                <div class="modal-footer justify-content-start">
+                  <button type="button" class="btn btn-danger solid">Удалить</button>
+                  <a class="btn btn-neutral" href="#dialogs">Отмена</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <p class="kit-label">Раскрывающиеся блоки</p>
+          <p class="kit-note">Нативный <code>&lt;details&gt;</code>: доступен с клавиатуры и работает без JavaScript.</p>
+          <details class="disclosure" open>
+            <summary>Какие форматы можно импортировать?</summary>
+            <p>CSV в кодировке UTF-8 и JSON. Пример каждого формата можно скачать на странице импорта.</p>
+          </details>
+          <details class="disclosure">
+            <summary>Что значит «+1»?</summary>
+            <p>Одно выполнение привычки. За день можно отметить несколько выполнений.</p>
+          </details>
+          <details class="disclosure">
+            <summary>Кто видит мои комментарии?</summary>
+            <p>Все посетители каталога, включая гостей.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Сетка ================= -->
+    <section class="kit-section" id="grid" aria-labelledby="grid-title">
+      <h2 class="kit-title" id="grid-title">Сетка</h2>
+      <p class="kit-note">Контейнер <code>.container</code> — 1200 px с полями 28 px. Внутри — 12 колонок Bootstrap; точки перелома: <code>md</code> 768 px, <code>lg</code> 992 px.</p>
+      <div class="row g-3 kit-grid">
+        <div class="col-12"><span>.col-12</span></div>
+        <div class="col-12 col-md-6"><span>.col-md-6</span></div>
+        <div class="col-12 col-md-6"><span>.col-md-6</span></div>
+        <div class="col-12 col-md-6 col-lg-4"><span>.col-lg-4</span></div>
+        <div class="col-12 col-md-6 col-lg-4"><span>.col-lg-4</span></div>
+        <div class="col-12 col-lg-4"><span>.col-lg-4</span></div>
+        <div class="col-6 col-lg-3"><span>.col-lg-3</span></div>
+        <div class="col-6 col-lg-3"><span>.col-lg-3</span></div>
+        <div class="col-6 col-lg-3"><span>.col-lg-3</span></div>
+        <div class="col-6 col-lg-3"><span>.col-lg-3</span></div>
+      </div>
+    </section>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="pagefoot">
+  <div class="container">
+    <div class="foot-grid row g-4">
+      <div class="col-12 col-md-4">
+        <h2>Ритм</h2>
+        <p>Учебный демостенд для лабораторных работ по веб-разработке. Все данные, имена и счётчики на этой странице — демонстрационные.</p>
+      </div>
+      <div class="col-12 col-md-4">
+        <h2>Разделы</h2>
+        <ul class="list-unstyled d-flex flex-column gap-2">
+          <li><a href="index.html">Привычки</a></li>
+          <li><a href="exchange.html">Импорт и экспорт</a></li>
+          <li><a href="login.html">Войти</a></li>
+          <li><a href="register.html">Регистрация</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-4">
+        <h2>Для преподавателей</h2>
+        <p>Верстка покрывает темы ЛР 1–6: разметку и HTTP, каталог с БД, формы и CRUD, файлы и обмен, cookies и сессии, вход и права доступа.</p>
+      </div>
+    </div>
+    <p class="foot-bottom">© 2026 «Ритм» — демонстрационный стенд для учебных целей. Разработка — <a href="https://www.intervolga.ru/">ИНТЕРВОЛГА</a>.</p>
+  </div>
+</footer>
+
+<a class="to-top" href="#top" id="to-top" aria-label="Наверх страницы">
+  <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V6M6 12l6-6 6 6"/></svg>
+</a>
+
+<script src="assets/js/to-top.js"></script>
+
+<script src="assets/js/recent-scroll.js"></script>
+
+</body>
+</html>
