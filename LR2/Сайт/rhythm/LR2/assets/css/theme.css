@@ -1,0 +1,536 @@
+/* Тема «Ритм» поверх Bootstrap 5.3.
+   Файл только дополняет и переопределяет bootstrap.min.css и подключается после него.
+   Разделы: переменные -> база -> шапка -> герой -> фильтр -> кнопки ->
+   карточки -> пагинация -> недавние -> подвал -> кнопка «наверх» ->
+   прочие компоненты Bootstrap -> внутренние страницы -> альтернативные состояния -> адаптив.
+   Все элементы собраны на одной странице: ui-kit.html. */
+
+/* ---------- 1. Переменные темы и настройка переменных Bootstrap ---------- */
+:root{
+  /* Фирменная палитра стенда */
+  --bg:#ffffff;
+  --band:#f5f5f7;
+  --ink:#1d1d1f;
+  --muted:#6e6e73;
+  --accent:#0071e3;
+  --purple:#7d5cff;
+  --positive:#1f8a3b;
+  --amber:#c9770a;
+  --danger:#d70015;
+
+  /* Те же значения, но для встроенных механизмов Bootstrap */
+  --bs-body-bg:var(--bg);
+  --bs-body-color:#1d1d1f;
+  --bs-body-font-family:"Onest",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --bs-body-font-size:17px;
+  --bs-body-line-height:1.5;
+  --bs-font-monospace:"Roboto Mono",ui-monospace,Consolas,monospace;
+  --bs-link-color-rgb:0,113,227;
+  --bs-link-hover-color-rgb:0,113,227;
+  --bs-border-color:#ececef;
+  --bs-emphasis-color:#1d1d1f;
+  --bs-secondary-color:#6e6e73;
+  --bs-secondary-bg:#e8e8ed;
+  --bs-tertiary-bg:#f5f5f7;
+  --bs-code-color:#a4136a;
+
+  /* Смысловые цвета Bootstrap = палитра стенда */
+  --bs-primary:#0071e3;   --bs-primary-rgb:0,113,227;
+  --bs-success:#1f8a3b;   --bs-success-rgb:31,138,59;
+  --bs-danger:#d70015;    --bs-danger-rgb:215,0,21;
+  --bs-warning:#c9770a;   --bs-warning-rgb:201,119,10;
+  --bs-info:#7d5cff;      --bs-info-rgb:125,92,255;
+  --bs-primary-bg-subtle:#e5f1ff; --bs-primary-text-emphasis:#003d7a; --bs-primary-border-subtle:#e5f1ff;
+  --bs-success-bg-subtle:#e6f6ea; --bs-success-text-emphasis:#0d3d20; --bs-success-border-subtle:#e6f6ea;
+  --bs-danger-bg-subtle:#fbe7e6;  --bs-danger-text-emphasis:#7a0e0e;  --bs-danger-border-subtle:#fbe7e6;
+  --bs-warning-bg-subtle:#fbeedc; --bs-warning-text-emphasis:#5c3604; --bs-warning-border-subtle:#fbeedc;
+  --bs-info-bg-subtle:#efeaff;    --bs-info-text-emphasis:#3a2a80;    --bs-info-border-subtle:#efeaff;
+  --bs-form-valid-color:#1f8a3b;  --bs-form-valid-border-color:#1f8a3b;
+  --bs-form-invalid-color:#d70015; --bs-form-invalid-border-color:#d70015;
+
+  /* Скругления: мягче, чем у Bootstrap по умолчанию */
+  --bs-border-radius:14px;
+  --bs-border-radius-sm:10px;
+  --bs-border-radius-lg:20px;
+  --bs-border-radius-xl:24px;
+  --bs-border-radius-pill:980px;
+}
+
+/* ---------- 2. База ---------- */
+html{scroll-behavior:smooth;}
+body{letter-spacing:-.01em;}
+h1,h2,h3{text-wrap:balance;font-weight:800;margin:0;letter-spacing:-.03em;line-height:1.04;}
+h4,h5,h6{text-wrap:balance;font-weight:700;margin:0;letter-spacing:-.02em;line-height:1.2;}
+.lead{font-size:1.15rem;color:var(--muted);}
+hr{color:#e2e2e7;opacity:1;}
+kbd{border-radius:6px;}
+.mono{font-family:var(--bs-font-monospace);font-variant-numeric:tabular-nums;letter-spacing:0;}
+.icon{width:1.1em;height:1.1em;vertical-align:-.18em;stroke-width:1.8;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;flex:none;}
+
+/* Единое кольцо фокуса вместо разнородных подсветок Bootstrap */
+:focus{outline:none;}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px;box-shadow:0 0 0 5px rgba(0,113,227,.28);}
+
+/* flow-root: отступ последнего блока не «проваливается» за край полосы */
+.band{background:var(--band);display:flow-root;}
+main.page{max-width:none;margin:0;padding:0;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(-3%,2.5%) scale(1.08);}66%{transform:translate(3.5%,-4%) scale(1.05);}}
+@keyframes ripple{0%{opacity:.26;transform:scale(.4);}100%{opacity:0;transform:scale(1.2);}}
+@keyframes cycle{0%{stroke-dashoffset:58;}100%{stroke-dashoffset:0;}}
+@keyframes beat{0%{transform:scaleY(0);}100%{transform:scaleY(1);}}
+@keyframes beat-pop{0%{transform:scale(0);}60%{transform:scale(1.25);}100%{transform:scale(1);}}
+.fade{animation:fadeUp .5s cubic-bezier(.2,.7,.2,1) both;}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
+}
+
+/* ---------- 3. Шапка: только фирменное оформление поверх Bootstrap navbar ---------- */
+.page-head{position:sticky;top:0;z-index:8;background:rgba(255,255,255,.78);
+  -webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px);
+  border-bottom:1px solid rgba(0,0,0,.06);}
+.head-inner{padding-top:14px;padding-bottom:14px;}
+.brand{color:var(--ink);text-decoration:none;}
+.brand:hover{color:var(--ink);}
+.brand-name{font-weight:800;font-size:1.12rem;letter-spacing:-.03em;}
+.logo-mark{width:30px;height:30px;flex:none;}
+.logo-mark .cycle{stroke-dasharray:58 200;animation:cycle 1.1s cubic-bezier(.2,.7,.2,1) both;}
+.logo-mark .beats rect{transform-box:fill-box;transform-origin:50% 100%;animation:beat .55s cubic-bezier(.2,.9,.3,1) both;}
+.logo-mark .beats rect:nth-child(2){animation-delay:.09s;}
+.logo-mark .beats rect:nth-child(3){animation-delay:.18s;}
+.logo-mark .beat-now{transform-box:fill-box;transform-origin:50% 50%;animation:beat-pop .5s cubic-bezier(.2,.9,.3,1) .5s both;}
+
+.mainnav{font-size:.92rem;}
+.mainnav .nav-link{padding:0;text-decoration:none;color:var(--muted);font-weight:500;}
+.mainnav .nav-link:hover{color:var(--ink);}
+.mainnav .nav-link[aria-current]{color:var(--ink);font-weight:600;}
+
+.userbox{font-size:.88rem;color:var(--muted);}
+.userbox .who{color:var(--ink);font-weight:600;margin-right:6px;}
+.userbox .btn{box-shadow:none;}
+.userbox .btn-primary{box-shadow:0 6px 14px rgba(0,113,227,.28);}
+
+/* ---------- 4. Герой ---------- */
+.hero{position:relative;overflow:hidden;isolation:isolate;}
+.hero::before{content:"";position:absolute;inset:-25%;z-index:-2;filter:blur(56px);animation:drift 9s ease-in-out infinite;
+  background:
+    radial-gradient(36% 40% at 14% 24%, color-mix(in srgb, var(--accent) 78%, transparent), transparent 68%),
+    radial-gradient(32% 38% at 88% 10%, color-mix(in srgb, var(--purple) 74%, transparent), transparent 68%),
+    radial-gradient(40% 44% at 72% 92%, color-mix(in srgb, var(--positive) 68%, transparent), transparent 68%),
+    radial-gradient(30% 34% at 6% 90%, color-mix(in srgb, var(--amber) 66%, transparent), transparent 66%),
+    radial-gradient(26% 30% at 50% 45%, color-mix(in srgb, var(--purple) 30%, transparent), transparent 70%),
+    #ffffff;}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.55;mix-blend-mode:overlay;pointer-events:none;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%25" height="100%25" filter="url(%23n)" opacity="0.4"/></svg>');}
+.hero-inner{position:relative;padding-top:68px;}
+.hero h1{font-size:clamp(2.3rem,4.6vw,3.5rem);max-width:19ch;}
+.hero h1 em{font-style:normal;font-weight:400;color:var(--muted);}
+.hero p{color:var(--muted);font-size:1.08rem;max-width:50ch;margin:16px 0 0;}
+.hero-spacer{height:42px;}
+
+/* ---------- 5. Фильтр каталога ---------- */
+.filterbar{padding:30px 0 22px;border-bottom:1px solid #e2e2e7;margin-bottom:20px;}
+.form-label{margin-bottom:6px;font-weight:600;color:var(--muted);font-size:.82rem;}
+.field{font-size:.82rem;min-width:150px;}
+.field .form-label{margin-bottom:0;}
+
+/* Поля: «таблетка» без рамки вместо прямоугольника Bootstrap */
+.form-control,.form-select{font-size:.92rem;padding:10px 14px;border:none;background-color:#fff;color:var(--ink);
+  border-radius:980px;box-shadow:0 1px 2px rgba(29,29,31,.05);}
+.form-control:focus,.form-select:focus{border-color:transparent;box-shadow:0 1px 2px rgba(29,29,31,.05);}
+.form-control::placeholder{color:#a1a1a6;}
+.form-select{padding-right:34px;background-position:right 14px center;}
+
+.field--range{min-width:210px;}
+.range-inputs .form-control{width:100%;min-width:0;}
+.range-inputs .dash{color:var(--muted);}
+
+.field--check{min-width:auto;padding-bottom:10px;padding-left:0;margin-bottom:0;}
+.field--check .form-check-input{float:none;margin:0;width:18px;height:18px;flex:none;}
+.field--check .form-check-label{font-weight:500;color:var(--ink);font-size:.88rem;}
+
+.count-note{font-size:.86rem;color:var(--muted);margin:0;}
+.count-note b{color:var(--ink);}
+
+/* Строка сортировки под фильтром */
+.listbar{gap:16px;padding:0 0 20px;}
+.listbar .field{min-width:auto;}
+.listbar .field .form-label{white-space:nowrap;}
+
+/* ---------- 6. Кнопки ---------- */
+.btn{
+  --bs-btn-padding-x:22px;
+  --bs-btn-padding-y:11px;
+  --bs-btn-font-size:.9rem;
+  --bs-btn-font-weight:600;
+  --bs-btn-border-width:0;
+  --bs-btn-border-radius:980px;
+  --bs-btn-focus-box-shadow:0 0 0 5px rgba(0,113,227,.28);
+  --bs-btn-active-shadow:none;
+  /* Цвета здесь не задаются: их дают варианты ниже, а .btn-link и прочие варианты Bootstrap остаются рабочими */
+  display:inline-flex;align-items:center;gap:6px;text-decoration:none;
+  position:relative;overflow:hidden;isolation:isolate;
+  transition:box-shadow .28s cubic-bezier(.2,.7,.2,1);
+}
+/* Наведение и нажатие показываются наложением и тенью, а не сменой фона */
+.btn::after{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:currentColor;opacity:0;transform:scale(.4);
+  pointer-events:none;transition:opacity .25s ease,transform .3s cubic-bezier(.2,.7,.2,1);}
+.btn:hover::after{opacity:.1;transform:scale(1);}
+.btn:active::after{animation:ripple .55s cubic-bezier(.2,.7,.2,1);}
+.btn-sm{--bs-btn-padding-x:16px;--bs-btn-padding-y:8px;--bs-btn-font-size:.84rem;}
+.btn-lg{--bs-btn-padding-x:28px;--bs-btn-padding-y:14px;--bs-btn-font-size:1rem;}
+.btn:disabled,.btn.disabled{box-shadow:none;}
+/* Круглая кнопка-иконка. Подписи нет, поэтому имя действия обязательно в aria-label и title */
+.btn-icon{--bs-btn-padding-x:0;--bs-btn-padding-y:0;width:42px;height:42px;justify-content:center;flex:none;}
+.btn-icon svg{width:18px;height:18px;stroke-width:2;}
+.btn-link{text-decoration:underline;}
+
+.btn-primary{--bs-btn-bg:var(--accent);--bs-btn-hover-bg:var(--accent);--bs-btn-active-bg:var(--accent);
+  --bs-btn-color:#fff;--bs-btn-hover-color:#fff;--bs-btn-active-color:#fff;--bs-btn-disabled-bg:var(--accent);--bs-btn-disabled-color:#fff;
+  --bs-btn-active-shadow:0 4px 12px rgba(0,113,227,.3),0 0 0 3px rgba(0,113,227,.2),inset 0 2px 8px rgba(0,0,0,.22);
+  box-shadow:0 8px 20px rgba(0,113,227,.34);}
+.btn-primary:hover{box-shadow:0 8px 20px rgba(0,113,227,.34),0 0 0 6px rgba(0,113,227,.17);}
+
+.btn-positive{--bs-btn-bg:var(--positive);--bs-btn-hover-bg:var(--positive);--bs-btn-active-bg:var(--positive);
+  --bs-btn-color:#fff;--bs-btn-hover-color:#fff;--bs-btn-active-color:#fff;--bs-btn-disabled-bg:var(--positive);--bs-btn-disabled-color:#fff;
+  --bs-btn-active-shadow:0 4px 12px rgba(31,138,59,.3),0 0 0 3px rgba(31,138,59,.2),inset 0 2px 8px rgba(0,0,0,.22);
+  box-shadow:0 8px 20px rgba(31,138,59,.34);}
+.btn-positive:hover{box-shadow:0 8px 20px rgba(31,138,59,.34),0 0 0 6px rgba(31,138,59,.17);}
+
+.btn-neutral{--bs-btn-bg:#e8e8ed;--bs-btn-hover-bg:#e8e8ed;--bs-btn-active-bg:#e8e8ed;
+  --bs-btn-color:var(--ink);--bs-btn-hover-color:var(--ink);--bs-btn-active-color:var(--ink);
+  --bs-btn-disabled-bg:#e8e8ed;--bs-btn-disabled-color:var(--ink);
+  --bs-btn-active-shadow:0 0 0 3px rgba(29,29,31,.12),inset 0 2px 8px rgba(29,29,31,.18);}
+.btn-neutral:hover{box-shadow:0 0 0 6px rgba(29,29,31,.09);}
+
+.btn-danger{--bs-btn-bg:transparent;--bs-btn-hover-bg:transparent;--bs-btn-active-bg:transparent;
+  --bs-btn-color:var(--danger);--bs-btn-hover-color:var(--danger);--bs-btn-active-color:var(--danger);
+  --bs-btn-disabled-bg:transparent;--bs-btn-disabled-color:var(--danger);
+  --bs-btn-active-shadow:inset 0 0 0 1.5px var(--danger),0 0 0 3px rgba(215,0,21,.18),inset 0 2px 8px rgba(215,0,21,.18);
+  box-shadow:inset 0 0 0 1.5px var(--danger);}
+.btn-danger:hover{box-shadow:inset 0 0 0 1.5px var(--danger),0 0 0 6px rgba(215,0,21,.14);}
+.btn-danger.solid{--bs-btn-bg:var(--danger);--bs-btn-hover-bg:var(--danger);--bs-btn-active-bg:var(--danger);
+  --bs-btn-color:#fff;--bs-btn-hover-color:#fff;--bs-btn-active-color:#fff;
+  --bs-btn-disabled-bg:var(--danger);--bs-btn-disabled-color:#fff;
+  --bs-btn-active-shadow:0 4px 12px rgba(215,0,21,.3),0 0 0 3px rgba(215,0,21,.2),inset 0 2px 8px rgba(0,0,0,.22);
+  box-shadow:0 8px 20px rgba(215,0,21,.34);}
+.btn-danger.solid:hover{box-shadow:0 8px 20px rgba(215,0,21,.34),0 0 0 6px rgba(215,0,21,.17);}
+
+/* ---------- 7. Карточки: Bootstrap задаёт основу, тема — уникальную медиа-композицию ---------- */
+/* Сетка каталога — стандартный row/col Bootstrap с фирменным шагом 22px */
+.cards{--bs-gutter-x:22px;--bs-gutter-y:22px;padding:6px 0 48px;}
+.card{
+  --bs-card-bg:#fff;
+  --bs-card-border-width:0;
+  --bs-card-border-radius:24px;
+  --bs-card-inner-border-radius:24px;
+  overflow:hidden;box-shadow:0 1px 2px rgba(29,29,31,.06);transition:box-shadow .22s ease;}
+.card:hover{box-shadow:0 22px 46px rgba(29,29,31,.14);}
+
+/* Широкая карточка: Bootstrap меняет направление, тема задаёт уникальное соотношение медиа и текста. */
+@media (min-width:992px){
+  .card--wide .card-media,.card--wide-rev .card-media{width:44%;aspect-ratio:auto;}
+  .card--wide .card-body,.card--wide-rev .card-body{flex:1;justify-content:center;}
+}
+
+.card-media{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--cat-tint,var(--band));}
+.card-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+.card:hover .card-media img{transform:scale(1.055);}
+
+[data-cat="health"]{--cat:var(--accent);--cat-tint:#e5f1ff;}
+[data-cat="study"]{--cat:var(--purple);--cat-tint:#efeaff;}
+[data-cat="sport"]{--cat:var(--positive);--cat-tint:#e6f6ea;}
+[data-cat="home"]{--cat:var(--amber);--cat-tint:#fbeedc;}
+
+.media-chip{position:absolute;top:14px;left:14px;z-index:2;display:inline-flex;align-items:center;gap:6px;
+  background:rgba(29,29,31,.6);backdrop-filter:blur(6px);color:#fff;font-size:.72rem;font-weight:700;
+  padding:6px 12px 6px 8px;border-radius:980px;text-transform:uppercase;letter-spacing:.03em;}
+.media-chip svg{width:13px;height:13px;stroke-width:2.2;}
+
+.card-body{padding:22px 24px 26px;}
+.card-title{margin-bottom:0;font-size:1.2rem;font-weight:700;letter-spacing:-.02em;}
+.card-title a{color:var(--ink);text-decoration:none;}
+.card-title a:hover{color:var(--ink);text-decoration:underline;}
+.habit-icon{width:34px;height:34px;border-radius:11px;flex:none;display:flex;align-items:center;justify-content:center;
+  background:var(--cat-tint,var(--band));color:var(--cat,var(--accent));}
+.habit-icon svg{width:19px;height:19px;stroke-width:2;}
+.card-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:.78rem;color:var(--muted);margin:0;}
+.card-meta .cat-name{font-weight:700;color:var(--cat,var(--ink));}
+.card .desc{font-size:.9rem;color:var(--muted);margin:0;}
+
+.counters{font-size:.8rem;color:var(--muted);}
+.counters b{display:block;font-size:1.1rem;color:var(--ink);font-weight:800;}
+.card-actions{gap:8px;}
+.last-done{margin:0;font-size:.78rem;color:var(--muted);}
+
+/* Кнопка «+1» с личным счётчиком в бейдже — «positioned badge» Bootstrap.
+   Бейдж выходит за край кнопки, поэтому обрезку снимаем, а рябь при нажатии
+   не раздуваем больше самой кнопки. */
+.btn-count{overflow:visible;margin-right:12px;}
+.btn-count:active::after{animation-name:ripple-inside;}
+@keyframes ripple-inside{0%{opacity:.26;transform:scale(.4);}100%{opacity:0;transform:scale(1);}}
+.btn-count .badge{z-index:1;min-width:22px;padding:.4em .6em;font-size:.7rem;letter-spacing:0;
+  font-variant-numeric:tabular-nums;box-shadow:0 0 0 2px #fff;}
+
+.comments{padding-top:6px;border-top:1px solid #ececef;}
+.comment{font-size:.85rem;}
+.comment .meta{font-size:.76rem;color:var(--muted);margin-bottom:2px;}
+.comment .who{font-weight:600;color:var(--ink);}
+.all-comments{font-size:.85rem;font-weight:600;text-decoration:none;}
+
+.empty-state{background:#fff;border-radius:24px;padding:46px 28px;text-align:center;box-shadow:0 1px 2px rgba(29,29,31,.06);margin:6px 0 48px;}
+.empty-state h2{font-size:1.15rem;margin-bottom:8px;}
+.empty-state p{color:var(--muted);font-size:.9rem;margin:0 0 18px;}
+
+/* ---------- 8. Пагинация ---------- */
+.pager{padding:0 0 48px;}
+.pagination{
+  --bs-pagination-padding-x:0;
+  --bs-pagination-padding-y:0;
+  --bs-pagination-font-size:.85rem;
+  --bs-pagination-border-width:0;
+  --bs-pagination-border-radius:50%;
+  --bs-pagination-bg:#fff;
+  --bs-pagination-color:var(--ink);
+  --bs-pagination-hover-bg:#fff;
+  --bs-pagination-hover-color:var(--ink);
+  --bs-pagination-focus-bg:#fff;
+  --bs-pagination-focus-box-shadow:none;
+  --bs-pagination-active-bg:var(--ink);
+  --bs-pagination-active-color:#fff;
+  --bs-pagination-disabled-bg:#fff;
+  --bs-pagination-disabled-color:#c7c7cc;
+  gap:6px;margin:0;}
+.page-link{width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;text-decoration:none;}
+.page-item.active .page-link{font-weight:700;}
+/* Bootstrap стягивает соседние кнопки на толщину рамки — рамки нет, шаг задаёт gap */
+.page-item:not(:first-child) .page-link{margin-left:0;}
+
+/* ---------- 9. Уникальная горизонтальная лента недавно просмотренных ---------- */
+.recent{padding:8px 0 48px;}
+.recent h2,.recent .recent-title{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:16px;font-weight:700;}
+/* Список и кнопка очистки в одну строку; на узком экране кнопка переносится под список */
+.recent-row .btn-icon{margin-left:auto;}
+/* Лента занимает всю ширину до кнопки и прокручивается внутри себя, а не переносится.
+   Отрицательные поля с таким же отступом не дают прокрутке обрезать тени элементов. */
+.recent-list{--fade-l:0px;--fade-r:0px;display:flex;flex:1 1 auto;min-width:0;gap:14px;flex-wrap:nowrap;
+  margin:-6px -4px;padding:6px 4px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent 100%);
+  mask-image:linear-gradient(to right,transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent 100%);}
+.recent-list li{flex:none;display:flex;align-items:center;gap:9px;font-size:.88rem;white-space:nowrap;background:#fff;border-radius:980px;padding:6px 16px 6px 6px;box-shadow:0 1px 2px rgba(29,29,31,.06);}
+/* Классы ставит assets/js/recent-scroll.js: край, за которым есть ещё элементы, растворяется */
+.recent-list.can-scroll-left{--fade-l:36px;}
+.recent-list.can-scroll-right{--fade-r:36px;}
+.recent-list.is-draggable{cursor:grab;}
+.recent-list.is-dragging{cursor:grabbing;user-select:none;}
+.recent-list img{-webkit-user-drag:none;}
+.recent .rthumb{width:30px;height:30px;border-radius:50%;overflow:hidden;flex:none;background:var(--band);}
+.recent .rthumb img{width:100%;height:100%;object-fit:cover;}
+.recent-list a{color:var(--ink);text-decoration:none;font-weight:500;}
+.recent .empty-note{font-size:.88rem;color:var(--muted);margin:0;}
+
+/* ---------- 10. Подвал ---------- */
+.pagefoot{font-size:.82rem;color:var(--muted);}
+.pagefoot > .container{padding-top:28px;padding-bottom:40px;border-top:1px solid #ececef;}
+.foot-grid{padding-top:36px;}
+.foot-grid h2{font-size:.82rem;margin-bottom:10px;color:var(--ink);}
+.foot-grid p{margin:0;font-size:.86rem;color:var(--muted);line-height:1.55;}
+.foot-grid ul{margin:0;}
+.foot-grid a{color:var(--muted);text-decoration:none;font-size:.86rem;}
+.foot-grid a:hover{color:var(--ink);}
+.foot-bottom{margin:28px 0 0;padding-top:18px;border-top:1px solid #ececef;font-size:.78rem;color:var(--muted);}
+.foot-bottom a{color:var(--muted);}
+.foot-bottom a:hover{color:var(--ink);}
+
+/* ---------- 11. Кнопка «наверх» ---------- */
+.to-top{position:fixed;right:24px;bottom:24px;z-index:9;width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:#fff;color:var(--ink);
+  box-shadow:0 8px 24px rgba(29,29,31,.18);opacity:0;visibility:hidden;transform:translateY(12px);
+  transition:opacity .25s ease,transform .25s cubic-bezier(.2,.7,.2,1),visibility .25s,box-shadow .25s ease;}
+.to-top.is-visible{opacity:1;visibility:visible;transform:none;}
+.to-top:hover{color:var(--ink);box-shadow:0 12px 30px rgba(29,29,31,.24);}
+.to-top:active{box-shadow:0 4px 14px rgba(29,29,31,.2),inset 0 2px 8px rgba(29,29,31,.16);}
+.to-top svg{width:20px;height:20px;stroke-width:2.2;}
+
+/* ---------- 12. Прочие компоненты Bootstrap ---------- */
+/* Нужны формам, админке и служебным страницам. Показаны в ui-kit.html. */
+
+/* Белая панель для форм и групп контента */
+.panel{background:#fff;border-radius:24px;padding:24px;box-shadow:0 1px 2px rgba(29,29,31,.06);}
+/* На белой поверхности белые поля сливаются с фоном — подкрашиваем их цветом полосы */
+:is(.panel,.card,.modal-content) :is(.form-control,.form-select):not(:disabled):not([readonly]){background-color:var(--band);}
+
+/* Флажки, переключатели, радиокнопки, ползунок */
+.form-check-input{border-color:#c7c7cc;}
+.form-check-input:checked{background-color:var(--accent);border-color:var(--accent);}
+.form-check-input:focus{box-shadow:none;border-color:#c7c7cc;}
+.form-check-input:checked:focus{border-color:var(--accent);}
+.form-switch .form-check-input:focus:not(:checked){--bs-form-switch-bg:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");}
+.form-check-label{font-size:.92rem;}
+.form-range::-webkit-slider-thumb{background-color:var(--accent);}
+.form-range::-moz-range-thumb{background-color:var(--accent);}
+.form-range::-webkit-slider-runnable-track{background-color:#e2e2e7;}
+.form-range::-moz-range-track{background-color:#e2e2e7;}
+.form-range:focus::-webkit-slider-thumb{box-shadow:0 0 0 5px rgba(0,113,227,.28);}
+.form-range:focus::-moz-range-thumb{box-shadow:0 0 0 5px rgba(0,113,227,.28);}
+
+/* Многострочные поля и списки не делаем «таблеткой» */
+textarea.form-control{border-radius:18px;min-height:110px;}
+.form-select[multiple],.form-select[size]:not([size="1"]){border-radius:18px;padding-right:14px;background-image:none;}
+.form-control:disabled,.form-select:disabled{background-color:#e8e8ed;color:var(--muted);box-shadow:none;}
+.form-control[readonly]{background-color:#f5f5f7;box-shadow:inset 0 0 0 1px #e2e2e7;}
+.form-control::file-selector-button{margin:-10px 12px -10px -14px;padding:10px 16px;border:0;
+  background-color:#e8e8ed;color:var(--ink);font-weight:600;}
+.form-control:hover:not(:disabled):not([readonly])::file-selector-button{background-color:#dcdce2;}
+.form-control-lg{font-size:1.05rem;padding:13px 18px;}
+.form-control-sm{font-size:.84rem;padding:7px 12px;}
+.form-text{color:var(--muted);font-size:.8rem;margin-top:6px;}
+legend{font-size:1rem;font-weight:700;letter-spacing:-.02em;margin-bottom:12px;}
+
+/* Ошибки и успех: рамки нет, поэтому состояние рисуется внутренней обводкой */
+.form-control.is-invalid,.form-select.is-invalid,
+.form-control.is-invalid:focus,.form-select.is-invalid:focus{box-shadow:inset 0 0 0 1.5px var(--danger);}
+.form-control.is-valid,.form-select.is-valid,
+.form-control.is-valid:focus,.form-select.is-valid:focus{box-shadow:inset 0 0 0 1.5px var(--positive);}
+.invalid-feedback,.valid-feedback{font-size:.8rem;font-weight:500;margin-top:6px;}
+
+/* Группа поля с подписью или кнопкой */
+.input-group{border-radius:980px;box-shadow:0 1px 2px rgba(29,29,31,.05);}
+.input-group>.form-control,.input-group>.form-select{box-shadow:none;}
+.input-group-text{border:0;background:#e8e8ed;color:var(--muted);font-size:.92rem;padding:10px 16px;border-radius:980px;}
+.input-group>.btn{box-shadow:none;}
+
+/* Уведомления */
+.alert{--bs-alert-padding-x:18px;--bs-alert-padding-y:14px;--bs-alert-border-radius:14px;--bs-alert-margin-bottom:12px;
+  font-size:.88rem;font-weight:500;}
+.alert-heading{font-size:1rem;font-weight:800;margin-bottom:4px;}
+.alert-link{font-weight:700;}
+
+/* Бейджи */
+.badge{--bs-badge-padding-x:.75em;--bs-badge-padding-y:.45em;--bs-badge-font-weight:700;--bs-badge-border-radius:980px;}
+/* На фиолетовом фоне чёрный текст Bootstrap не проходит контраст 4,5:1 */
+.text-bg-info{color:#fff !important;}
+
+/* Таблицы: карточка со своей горизонтальной прокруткой (§14 ТЗ) */
+.table-wrap{background:#fff;border-radius:18px;box-shadow:0 1px 2px rgba(29,29,31,.06);}
+/* Без position абсолютные потомки (например, .visually-hidden в заголовке) выпадают из прокрутки и растягивают страницу */
+.table-responsive{position:relative;}
+.table{--bs-table-bg:#fff;--bs-table-border-color:#ececef;--bs-table-striped-bg:#f9f9fb;--bs-table-hover-bg:#f2f2f5;
+  --bs-table-active-bg:#e5f1ff;font-size:.88rem;margin-bottom:0;}
+.table>:not(caption)>*>*{padding:12px 16px;}
+.table>thead th{font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;white-space:nowrap;}
+.table>tbody>tr:last-child>*{border-bottom:0;}
+.table caption{padding:12px 16px;color:var(--muted);font-size:.8rem;}
+
+/* Навигация */
+.breadcrumb{--bs-breadcrumb-margin-bottom:0;--bs-breadcrumb-divider-color:#c7c7cc;--bs-breadcrumb-item-active-color:var(--ink);font-size:.86rem;}
+.breadcrumb a{color:var(--muted);text-decoration:none;}
+.breadcrumb a:hover{color:var(--ink);}
+.nav-pills{--bs-nav-pills-link-active-bg:var(--ink);--bs-nav-pills-border-radius:980px;gap:6px;}
+.nav-pills .nav-link{color:var(--muted);font-weight:600;font-size:.88rem;padding:8px 16px;}
+.nav-pills .nav-link:hover{color:var(--ink);}
+.nav-pills .nav-link.active{color:#fff;}
+.nav-tabs{--bs-nav-tabs-border-color:#e2e2e7;--bs-nav-tabs-border-radius:14px;
+  --bs-nav-tabs-link-hover-border-color:transparent;--bs-nav-tabs-link-active-border-color:#e2e2e7 #e2e2e7 #fff;}
+.nav-tabs .nav-link{color:var(--muted);font-weight:600;font-size:.88rem;padding:10px 18px;}
+.nav-tabs .nav-link:hover{color:var(--ink);}
+.nav-tabs .nav-link.active{color:var(--ink);}
+
+/* Список-группа */
+.list-group{--bs-list-group-border-color:#ececef;--bs-list-group-border-radius:18px;
+  --bs-list-group-item-padding-x:18px;--bs-list-group-item-padding-y:12px;
+  --bs-list-group-action-hover-bg:#f5f5f7;--bs-list-group-action-active-bg:#ececef;
+  --bs-list-group-active-bg:var(--accent);--bs-list-group-active-border-color:var(--accent);
+  --bs-list-group-disabled-color:#a1a1a6;
+  font-size:.9rem;box-shadow:0 1px 2px rgba(29,29,31,.06);}
+
+/* Прогресс */
+.progress{--bs-progress-height:10px;--bs-progress-bg:#e8e8ed;--bs-progress-border-radius:980px;--bs-progress-bar-bg:var(--accent);}
+
+/* Модальное окно (на страницах подтверждения показывается статично, без JS) */
+.modal{--bs-modal-padding:24px;--bs-modal-border-width:0;--bs-modal-border-radius:24px;--bs-modal-inner-border-radius:24px;
+  --bs-modal-header-border-width:0;--bs-modal-footer-border-width:0;--bs-modal-footer-gap:8px;}
+.modal-content{box-shadow:0 22px 46px rgba(29,29,31,.14);}
+.modal-header{padding-bottom:0;}
+.modal-title{font-size:1.15rem;font-weight:800;}
+.modal-body{color:var(--muted);font-size:.92rem;}
+.modal-footer{padding-top:0;}
+
+/* Раскрывающийся блок на нативном <details> — работает без JavaScript */
+.disclosure{background:#fff;border-radius:18px;box-shadow:0 1px 2px rgba(29,29,31,.06);padding:14px 18px;}
+.disclosure+.disclosure{margin-top:10px;}
+.disclosure summary{font-weight:600;cursor:pointer;}
+.disclosure[open] summary{margin-bottom:8px;}
+.disclosure p{margin:0;color:var(--muted);font-size:.9rem;}
+
+/* ---------- 13. Внутренние страницы: привычка, вход, обмен, ошибки ---------- */
+
+/* Компактный герой и тело внутренней страницы */
+.hero--compact .hero-inner{padding-top:34px;}
+.hero--compact h1{font-size:clamp(1.9rem,3.8vw,2.7rem);max-width:none;}
+.hero--compact .hero-spacer{height:30px;}
+.back-link{display:inline-flex;align-items:center;gap:6px;margin-bottom:14px;font-size:.86rem;font-weight:600;color:var(--muted);text-decoration:none;}
+.back-link:hover{color:var(--ink);}
+.page-body{padding-top:34px;padding-bottom:48px;}
+.section-title{font-size:1.45rem;margin-bottom:16px;}
+.section-title .count{color:var(--muted);font-weight:400;}
+.panel-lead{color:var(--muted);font-size:.95rem;margin:0 0 16px;}
+
+/* Детальная страница привычки */
+.habit-title .habit-icon{width:52px;height:52px;border-radius:16px;}
+.habit-title .habit-icon svg{width:28px;height:28px;}
+.habit-figure{margin:0;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 1px 2px rgba(29,29,31,.06);}
+.habit-figure img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;}
+.habit-figure figcaption{padding:12px 20px;font-size:.8rem;color:var(--muted);}
+.habit-info .desc{margin:0;font-size:1rem;}
+.habit-info .counters{font-size:.86rem;}
+.habit-info .counters b{font-size:1.5rem;}
+.habit-comments{padding-top:40px;}
+
+.comment-list{margin:0 0 20px;}
+.comment-item{background:#fff;border-radius:18px;padding:16px 20px;box-shadow:0 1px 2px rgba(29,29,31,.06);}
+.comment-item .meta{margin-bottom:6px;font-size:.8rem;color:var(--muted);}
+.comment-item .who{font-size:.92rem;font-weight:600;color:var(--ink);}
+.comment-item p{margin:0;font-size:.95rem;}
+.comment-item p+p{margin-top:8px;}
+/* Свой комментарий отмечен полосой и подписью, а не только цветом */
+.comment-item--own{box-shadow:inset 3px 0 0 var(--accent),0 1px 2px rgba(29,29,31,.06);}
+.comment-actions{margin-top:12px;}
+
+/* Вход и регистрация */
+.auth-panel{max-width:460px;margin-inline:auto;}
+.auth-alt{margin:18px 0 0;text-align:center;font-size:.9rem;color:var(--muted);}
+
+/* Импорт и экспорт */
+.steps{margin:0 0 20px;padding-left:1.25rem;color:var(--muted);font-size:.92rem;}
+.steps li+li{margin-top:4px;}
+.format-choice .form-check{margin-bottom:0;}
+.example-links{margin:14px 0 20px;font-size:.88rem;color:var(--muted);}
+.demo-note{margin:12px 0 0;font-size:.8rem;color:var(--muted);}
+
+/* Страницы ошибок */
+.error-page{max-width:560px;margin-inline:auto;padding:72px 0 88px;text-align:center;}
+.error-code{margin:0;font-family:var(--bs-font-monospace);font-size:clamp(4.5rem,14vw,7.5rem);font-weight:600;line-height:1;letter-spacing:-.04em;color:var(--accent);}
+.error-page h1{font-size:clamp(1.8rem,4vw,2.4rem);margin:14px 0 12px;}
+.error-page p:not(.error-code){margin:0 0 24px;color:var(--muted);}
+
+/* ---------- 14. Альтернативные состояния на демонстрационной странице ---------- */
+/* Блок с .demo-alt показывает, как выглядит другое состояние того же места: пустой список,
+   пустая история, длинная навигация. В рабочей вёрстке такой блок выводится ВМЕСТО основного,
+   а не рядом с ним, и класс .demo-alt с подписью data-demo ему не нужен. */
+.demo-alt{position:relative;margin-top:44px;outline:2px dashed #c7c7cc;outline-offset:10px;}
+.demo-alt::before{content:attr(data-demo);position:absolute;left:0;bottom:calc(100% + 14px);
+  font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.empty-state.demo-alt{border-radius:24px;}
+.pager.demo-alt{margin-bottom:48px;padding-bottom:0;border-radius:18px;}
+.recent.demo-alt{padding-bottom:0;margin-bottom:48px;border-radius:14px;}
+
+/* ---------- 15. Узкие экраны ---------- */
+@media (max-width:767.98px){
+  /* Шапка переносится на две строки: бренд с меню сверху, вход и регистрация снизу.
+     Меню остаётся раскрытым и работает без JavaScript. */
+  .head-inner{column-gap:18px !important;}
+  .userbox{width:100%;justify-content:flex-end;}
+  .to-top{right:14px;bottom:14px;width:44px;height:44px;}
+}

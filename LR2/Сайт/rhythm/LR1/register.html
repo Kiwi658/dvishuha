@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Регистрация — Ритм</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<!-- Bootstrap подключается первым, тема стенда — после него и переопределяет нужное -->
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body id="top">
+
+<header class="page-head navbar navbar-expand-lg">
+  <div class="container head-inner d-flex flex-wrap align-items-center gap-3">
+    <a class="brand d-inline-flex align-items-center gap-2" href="index.html" aria-label="Ритм — на главную">
+      <svg width="34" height="34" class="logo-mark" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+        <circle class="cycle" cx="17" cy="17" r="12.1" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+        <g class="beats" fill="currentColor">
+          <rect x="9.8" y="18" width="3.4" height="5" rx="1.7"/>
+          <rect x="15.3" y="14.5" width="3.4" height="8.5" rx="1.7"/>
+          <rect x="20.8" y="11.5" width="3.4" height="11.5" rx="1.7"/>
+        </g>
+        <circle class="beat-now" cx="25.9" cy="8.8" r="2.7" fill="var(--accent)"/>
+      </svg>
+      <span class="brand-name">Ритм</span>
+    </a>
+    <nav aria-label="Основное меню">
+      <ul class="nav mainnav gap-4">
+        <li class="nav-item"><a class="nav-link" href="index.html">Привычки</a></li>
+        <li class="nav-item"><a class="nav-link" href="exchange.html">Импорт и экспорт</a></li>
+      </ul>
+    </nav>
+    <div class="userbox d-flex align-items-center gap-2 ms-auto">
+      <span class="who">Гость</span>
+      <a class="btn btn-neutral btn-sm" href="login.html">Войти</a>
+      <a class="btn btn-primary btn-sm" href="register.html">Регистрация</a>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+<section class="hero hero--compact">
+  <div class="container hero-inner">
+    <h1>Регистрация</h1>
+    <p>Аккаунт нужен, чтобы участвовать в привычках и комментировать.</p>
+  </div>
+  <div class="hero-spacer"></div>
+</section>
+
+<section class="band">
+  <div class="container page-body">
+    <form class="panel auth-panel" action="register.html" method="post">
+      <div class="mb-3">
+        <label class="form-label" for="reg-name">Имя</label>
+        <input class="form-control" id="reg-name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="reg-email">Email</label>
+        <input class="form-control" id="reg-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="reg-password">Пароль</label>
+        <input class="form-control" id="reg-password" name="password" type="password" autocomplete="new-password" required aria-describedby="reg-password-help">
+        <div class="form-text" id="reg-password-help">Не короче 8 символов.</div>
+      </div>
+      <div class="mb-4">
+        <label class="form-label" for="reg-password2">Повтор пароля</label>
+        <input class="form-control" id="reg-password2" name="password_confirm" type="password" autocomplete="new-password" required>
+      </div>
+      <div class="d-grid">
+        <button type="button" class="btn btn-primary justify-content-center">Зарегистрироваться</button>
+      </div>
+      <p class="auth-alt">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="pagefoot">
+  <div class="container">
+    <div class="foot-grid row g-4">
+      <div class="col-12 col-md-4">
+        <h2>Ритм</h2>
+        <p>Учебный демостенд для лабораторных работ по веб-разработке. Все данные, имена и счётчики на этой странице — демонстрационные.</p>
+      </div>
+      <div class="col-12 col-md-4">
+        <h2>Разделы</h2>
+        <ul class="list-unstyled d-flex flex-column gap-2">
+          <li><a href="index.html">Привычки</a></li>
+          <li><a href="exchange.html">Импорт и экспорт</a></li>
+          <li><a href="login.html">Войти</a></li>
+          <li><a href="register.html">Регистрация</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-4">
+        <h2>Для преподавателей</h2>
+        <p>Верстка покрывает темы ЛР 1–6: разметку и HTTP, каталог с БД, формы и CRUD, файлы и обмен, cookies и сессии, вход и права доступа.</p>
+      </div>
+    </div>
+    <p class="foot-bottom">© 2026 «Ритм» — демонстрационный стенд для учебных целей. Разработка — <a href="https://www.intervolga.ru/">ИНТЕРВОЛГА</a>.</p>
+  </div>
+</footer>
+
+<a class="to-top" href="#top" id="to-top" aria-label="Наверх страницы">
+  <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V6M6 12l6-6 6 6"/></svg>
+</a>
+
+<script src="assets/js/to-top.js"></script>
+
+</body>
+</html>

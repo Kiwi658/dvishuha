@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Меню — Додо (список)</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body id="top">
+
+<header class="page-head navbar navbar-expand-lg">
+    <div class="container head-inner d-flex flex-wrap align-items-center gap-3">
+        <a class="brand d-inline-flex align-items-center gap-2" href="index.html" aria-label="Додо — на главную">
+            <svg width="34" height="34" class="logo-mark" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+                <circle class="cycle" cx="17" cy="17" r="12.1" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+                <g class="beats" fill="currentColor">
+                    <rect x="9.8" y="18" width="3.4" height="5" rx="1.7"/>
+                    <rect x="15.3" y="14.5" width="3.4" height="8.5" rx="1.7"/>
+                    <rect x="20.8" y="11.5" width="3.4" height="11.5" rx="1.7"/>
+                </g>
+                <circle class="beat-now" cx="25.9" cy="8.8" r="2.7" fill="var(--accent)"/>
+            </svg>
+            <span class="brand-name">Додо</span>
+        </a>
+        <nav aria-label="Основное меню">
+            <ul class="nav mainnav gap-4">
+                <li class="nav-item"><a class="nav-link" href="index.html" aria-current="page">Меню</a></li>
+                <li class="nav-item"><a class="nav-link" href="exchange.html">Импорт и экспорт</a></li>
+            </ul>
+        </nav>
+        <div class="userbox d-flex align-items-center gap-2 ms-auto">
+            <span class="who">Гость</span>
+            <a class="btn btn-neutral btn-sm" href="login.html">Войти</a>
+            <a class="btn btn-primary btn-sm" href="register.html">Регистрация</a>
+        </div>
+    </div>
+</header>
+
+<main class="page">
+
+    <section class="hero">
+        <div class="container hero-inner">
+            <h1>Меню пиццерии <em>«Додо»</em></h1>
+            <p>Каталог позиций: смотрите состав, читайте отзывы и добавляйте в заказ</p>
+        </div>
+        <div class="hero-spacer"></div>
+    </section>
+
+    <section class="band">
+        <div class="container">
+            <form method="get" action="list.html" role="search">
+                <div class="filterbar row g-3 align-items-end">
+                    <div class="field col-12 col-sm-6 col-lg-auto d-flex flex-column gap-2">
+                        <label class="form-label" for="q">Название</label>
+                        <input class="form-control" id="q" name="q" type="search" value="" placeholder="Например, пепперони">
+                    </div>
+                    <div class="field col-12 col-sm-6 col-lg-auto d-flex flex-column gap-2">
+                        <label class="form-label" for="cat">Категория</label>
+                        <select class="form-select" id="cat" name="cat">
+                            <option selected>Все категории</option>
+                            <option>Пиццы</option>
+                            <option>Закуски</option>
+                            <option>Напитки</option>
+                            <option>Десерты</option>
+                        </select>
+                    </div>
+                    <div class="field field--range col-12 col-sm-6 col-lg-auto d-flex flex-column gap-2">
+                        <span class="form-label" id="price-title">Цена, ₽</span>
+                        <div class="range-inputs d-flex align-items-center gap-2" role="group" aria-labelledby="price-title">
+                            <label class="visually-hidden" for="price-min">Цена, от</label>
+                            <input class="form-control" id="price-min" name="price_min" type="number" min="0" step="1" inputmode="numeric" placeholder="от" value="">
+                            <span class="dash" aria-hidden="true">—</span>
+                            <label class="visually-hidden" for="price-max">Цена, до</label>
+                            <input class="form-control" id="price-max" name="price_max" type="number" min="0" step="1" inputmode="numeric" placeholder="до" value="">
+                        </div>
+                    </div>
+                    <div class="field field--check form-check col-12 col-lg-auto d-flex flex-row align-items-center gap-2">
+                        <input class="form-check-input" id="with-reviews" name="with_reviews" type="checkbox" value="1">
+                        <label class="form-check-label" for="with-reviews">Только с отзывами</label>
+                    </div>
+                    <div class="filter-actions col-12 col-lg-auto d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Применить</button>
+                        <a class="btn btn-neutral" href="list.html">Сбросить</a>
+                    </div>
+                </div>
+
+                <div class="listbar d-flex flex-wrap align-items-center justify-content-between gap-3">
+                    <p class="count-note mb-0">Найдено: <b>8 позиций</b>. Показаны все.</p>
+                    <div class="d-flex flex-wrap align-items-center gap-3">
+                        <div class="view-switch d-flex gap-2" role="group" aria-label="Вид отображения">
+                            <a class="btn btn-sm btn-neutral" href="index.html">Плитка</a>
+                            <a class="btn btn-sm btn-primary" href="list.html" aria-current="page">Список</a>
+                        </div>
+                        <div class="field d-flex flex-column flex-sm-row align-items-sm-center gap-2">
+                            <label class="form-label mb-0" for="sort">Сортировка</label>
+                            <select class="form-select" id="sort" name="sort">
+                                <option selected>По названию: А–Я</option>
+                                <option>По цене: сначала дешевле</option>
+                                <option>По цене: сначала дороже</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Компактный список -->
+            <div class="list-view d-flex flex-column gap-3">
+
+                <article class="card d-flex flex-row align-items-center gap-3 p-3">
+                    <a href="item.html" class="flex-shrink-0">
+                        <img width="120" height="80" class="rounded" src="assets/img/pizza-pepperoni.jpg" alt="Пицца Пепперони" style="width:120px;height:80px;object-fit:cover;">
+                    </a>
+                    <div class="flex-grow-1 min-w-0">
+                        <h2 class="h6 mb-1"><a href="item.html">Пепперони</a></h2>
+                        <p class="small text-muted mb-1">Пиццы · 599 ₽ · 1 248 заказов</p>
+                        <p class="small mb-0 text-truncate">Классическая пицца с острой колбасой пепперони, моцареллой и томатным соусом.</p>
+                    </div>
+                    <div class="flex-shrink-0 d-flex flex-column gap-2">
+                        <button type="button" class="btn btn-positive btn-sm">В корзину</button>
+                        <a class="btn btn-neutral btn-sm" href="item.html">Подробнее</a>
+                    </div>
+                </article>
+
+                <article class="card d-flex flex-row align-items-center gap-3 p-3">
+                    <a href="item.html" class="flex-shrink-0">
+                        <img width="120" height="80" class="rounded" src="assets/img/pizza-margherita.jpg" alt="Пицца Маргарита" style="width:120px;height:80px;object-fit:cover;">
+                    </a>
+                    <div class="flex-grow-1 min-w-0">
+                        <h2 class="h6 mb-1"><a href="item.html">Маргарита</a></h2>
+                        <p class="small text-muted mb-1">Пиццы · 449 ₽ · 2 103 заказа</p>
+                        <p class="small mb-0 text-truncate">Томатный соус, моцарелла, свежие томаты и базилик.</p>
+                    </div>
+                    <div class="flex-shrink-0 d-flex flex-column gap-2">
+                        <button type="button" class="btn btn-positive btn-sm">В корзину</button>
+                        <a class="btn btn-neutral btn-sm" href="item.html">Подробнее</a>
+                    </div>
+                </article>
+
+                <article class="card d-flex flex-row align-items-center gap-3 p-3">
+                    <a href="item.html" class="flex-shrink-0">
+                        <img width="120" height="80" class="rounded" src="assets/img/pizza-4cheese.jpg" alt="Пицца Четыре сыра" style="width:120px;height:80px;object-fit:cover;">
+                    </a>
+                    <div class="flex-grow-1 min-w-0">
+                        <h2 class="h6 mb-1"><a href="item.html">Четыре сыра</a></h2>
+                        <p class="small text-muted mb-1">Пиццы · 649 ₽ · 876 заказов</p>
+                        <p class="small mb-0 text-truncate">Моцарелла, горгонзола, пармезан и чеддер на сливочном соусе.</p>
+                    </div>
+                    <div class="flex-shrink-0 d-flex flex-column gap-2">
+                        <button type="button" class="btn btn-positive btn-sm">В корзину</button>
+                        <a class="btn btn-neutral btn-sm" href="item.html">Подробнее</a>
+                    </div>
+                </article>
+
+                <article class="card d-flex flex-row align-items-center gap-3 p-3">
+                    <a href="item.html" class="flex-shrink-0">
+                        <img width="120" height="80" class="rounded" src="assets/img/snack-wings.jpg" alt="Крылышки BBQ" style="width:120px;height:80px;object-fit:cover;">
+                    </a>
+                    <div class="flex-grow-1 min-w-0">
+                        <h2 class="h6 mb-1"><a href="item.html">Крылышки BBQ</a></h2>
+                        <p class="small text-muted mb-1">Закуски · 349 ₽ · 1 542 заказа</p>
+                        <p class="small mb-0 text-truncate">Куриные крылышки в соусе барбекю. Порция 8 шт.</p>
+                    </div>
+                    <div class="flex-shrink-0 d-flex flex-column gap-2">
+                        <button type="button" class="btn btn-positive btn-sm">В корзину</button>
+                        <a class="btn btn-neutral btn-sm" href="item.html">Подробнее</a>
+                    </div>
+                </article>
+
+                <article class="card d-flex flex-row align-items-center gap-3 p-3">
+                    <a href="item.html" class="flex-shrink-0">
+                        <img width="120" height="80" class="rounded" src="assets/img/drink-cola.jpg" alt="Кола 0,5 л" style="width:120px;height:80px;object-fit:cover;">
+                    </a>
+                    <div class="flex-grow-1 min-w-0">
+                        <h2 class="h6 mb-1"><a href="item.html">Кола 0,5 л</a></h2>
+                        <p class="small text-muted mb-1">Напитки · 99 ₽ · 3 210 заказов</p>
+                        <p class="small mb-0 text-truncate">Классическая газировка.</p>
+                    </div>
+                    <div class="flex-shrink-0 d-flex flex-column gap-2">
+                        <button type="button" class="btn btn-positive btn-sm">В корзину</button>
+                        <a class="btn btn-neutral btn-sm" href="item.html">Подробнее</a>
+                    </div>
+                </article>
+
+                <article class="card d-flex flex-row align-items-center gap-3 p-3">
+                    <a href="item.html" class="flex-shrink-0">
+                        <img width="120" height="80" class="rounded" src="assets/img/dessert-cheesecake.jpg" alt="Чизкейк Нью-Йорк" style="width:120px;height:80px;object-fit:cover;">
+                    </a>
+                    <div class="flex-grow-1 min-w-0">
+                        <h2 class="h6 mb-1"><a href="item.html">Чизкейк Нью-Йорк</a></h2>
+                        <p class="small text-muted mb-1">Десерты · 249 ₽ · 687 заказов</p>
+                        <p class="small mb-0 text-truncate">Классический чизкейк на песочной основе с ягодным соусом.</p>
+                    </div>
+                    <div class="flex-shrink-0 d-flex flex-column gap-2">
+                        <button type="button" class="btn btn-positive btn-sm">В корзину</button>
+                        <a class="btn btn-neutral btn-sm" href="item.html">Подробнее</a>
+                    </div>
+                </article>
+
+                <article class="card d-flex flex-row align-items-center gap-3 p-3">
+                    <a href="item.html" class="flex-shrink-0">
+                        <img width="120" height="80" class="rounded" src="assets/img/pizza-hawaiian.jpg" alt="Гавайская пицца" style="width:120px;height:80px;object-fit:cover;">
+                    </a>
+                    <div class="flex-grow-1 min-w-0">
+                        <h2 class="h6 mb-1"><a href="item.html">Гавайская</a></h2>
+                        <p class="small text-muted mb-1">Пиццы · 549 ₽ · 1 091 заказ</p>
+                        <p class="small mb-0 text-truncate">Ветчина, ананасы, моцарелла и томатный соус.</p>
+                    </div>
+                    <div class="flex-shrink-0 d-flex flex-column gap-2">
+                        <button type="button" class="btn btn-positive btn-sm">В корзину</button>
+                        <a class="btn btn-neutral btn-sm" href="item.html">Подробнее</a>
+                    </div>
+                </article>
+
+                <article class="card d-flex flex-row align-items-center gap-3 p-3">
+                    <a href="item.html" class="flex-shrink-0">
+                        <img width="120" height="80" class="rounded" src="assets/img/pizza-diablo.jpg" alt="Пицца Диабло" style="width:120px;height:80px;object-fit:cover;">
+                    </a>
+                    <div class="flex-grow-1 min-w-0">
+                        <h2 class="h6 mb-1"><a href="item.html">Диабло</a></h2>
+                        <p class="small text-muted mb-1">Пиццы · 629 ₽ · 754 заказа</p>
+                        <p class="small mb-0 text-truncate">Острая колбаса, перец чили, халапеньо, моцарелла.</p>
+                    </div>
+                    <div class="flex-shrink-0 d-flex flex-column gap-2">
+                        <button type="button" class="btn btn-positive btn-sm">В корзину</button>
+                        <a class="btn btn-neutral btn-sm" href="item.html">Подробнее</a>
+                    </div>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="recent" aria-labelledby="recent-title">
+            <h2 id="recent-title">Недавно просмотренные позиции</h2>
+            <div class="recent-row d-flex align-items-start gap-3">
+                <ul class="recent-list list-unstyled d-flex flex-nowrap gap-3 overflow-x-auto">
+                    <li><span class="rthumb"><img width="1344" height="768" class="img-fluid" src="assets/img/pizza-pepperoni.jpg" alt=""></span><a href="item.html">Пепперони</a></li>
+                    <li><span class="rthumb"><img width="1344" height="768" class="img-fluid" src="assets/img/pizza-margherita.jpg" alt=""></span><a href="item.html">Маргарита</a></li>
+                    <li><span class="rthumb"><img width="1344" height="768" class="img-fluid" src="assets/img/snack-wings.jpg" alt=""></span><a href="item.html">Крылышки BBQ</a></li>
+                </ul>
+                <button type="button" class="btn btn-neutral btn-icon" aria-label="Очистить историю просмотров" title="Очистить историю просмотров">
+                    <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg>
+                </button>
+            </div>
+        </section>
+    </div>
+
+</main>
+
+<footer class="pagefoot">
+    <div class="container">
+        <div class="foot-grid row g-4">
+            <div class="col-12 col-md-4">
+                <h2>Додо</h2>
+                <p>Учебный демостенд сети доставки пиццы для лабораторных работ по веб-разработке. Все данные, имена и счётчики на этой странице — демонстрационные.</p>
+            </div>
+            <div class="col-12 col-md-4">
+                <h2>Разделы</h2>
+                <ul class="list-unstyled d-flex flex-column gap-2">
+                    <li><a href="index.html">Меню</a></li>
+                    <li><a href="exchange.html">Импорт и экспорт</a></li>
+                    <li><a href="login.html">Войти</a></li>
+                    <li><a href="register.html">Регистрация</a></li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-4">
+                <h2>Для преподавателей</h2>
+                <p>Верстка покрывает темы ЛР 1–6: разметку и HTTP, каталог с БД, формы и CRUD, файлы и обмен, cookies и сессии, вход и права доступа.</p>
+            </div>
+        </div>
+        <p class="foot-bottom">© 2026 «Додо» — демонстрационный стенд для учебных целей. Разработка — <a href="https://www.intervolga.ru/">ИНТЕРВОЛГА</a>.</p>
+    </div>
+</footer>
+
+<a class="to-top" href="#top" id="to-top" aria-label="Наверх страницы">
+    <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V6M6 12l6-6 6 6"/></svg>
+</a>
+
+<script src="assets/js/to-top.js"></script>
+<script src="assets/js/recent-scroll.js"></script>
+
+</body>
+</html>
