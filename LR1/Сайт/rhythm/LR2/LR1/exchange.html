@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Импорт и экспорт — Ритм</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<!-- Bootstrap подключается первым, тема стенда — после него и переопределяет нужное -->
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body id="top">
+
+<header class="page-head navbar navbar-expand-lg">
+  <div class="container head-inner d-flex flex-wrap align-items-center gap-3">
+    <a class="brand d-inline-flex align-items-center gap-2" href="index.html" aria-label="Ритм — на главную">
+      <svg width="34" height="34" class="logo-mark" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+        <circle class="cycle" cx="17" cy="17" r="12.1" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+        <g class="beats" fill="currentColor">
+          <rect x="9.8" y="18" width="3.4" height="5" rx="1.7"/>
+          <rect x="15.3" y="14.5" width="3.4" height="8.5" rx="1.7"/>
+          <rect x="20.8" y="11.5" width="3.4" height="11.5" rx="1.7"/>
+        </g>
+        <circle class="beat-now" cx="25.9" cy="8.8" r="2.7" fill="var(--accent)"/>
+      </svg>
+      <span class="brand-name">Ритм</span>
+    </a>
+    <nav aria-label="Основное меню">
+      <ul class="nav mainnav gap-4">
+        <li class="nav-item"><a class="nav-link" href="index.html">Привычки</a></li>
+        <li class="nav-item"><a class="nav-link" href="exchange.html" aria-current="page">Импорт и экспорт</a></li>
+      </ul>
+    </nav>
+    <div class="userbox d-flex align-items-center gap-2 ms-auto">
+      <span class="who">Марина Ковалёва</span>
+      <button type="button" class="btn btn-neutral btn-sm">Выйти</button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+
+<section class="hero hero--compact">
+  <div class="container hero-inner">
+    <h1>Импорт и экспорт</h1>
+    <p>Перенесите отметки выполнения из другого трекера или скачайте свои.</p>
+  </div>
+  <div class="hero-spacer"></div>
+</section>
+
+<section class="band">
+  <div class="container page-body">
+    <div class="row g-4">
+      <div class="col-12 col-lg-7">
+        <section class="panel h-100" aria-labelledby="import-title">
+          <h2 class="section-title" id="import-title">Импорт выполнений</h2>
+          <p class="panel-lead">Перенесите отметки из учебного трекера «Дневник привычек». Файл сначала проверяется, импорт доступен только после предпросмотра без ошибок.</p>
+          <ol class="steps">
+            <li>Выгрузите отметки из «Дневника привычек» в CSV или JSON.</li>
+            <li>Выберите формат и файл, нажмите «Проверить файл».</li>
+            <li>Проверьте предпросмотр и подтвердите импорт.</li>
+          </ol>
+          <form action="exchange.html" method="post" enctype="multipart/form-data">
+            <fieldset class="mb-3">
+              <legend>Формат файла</legend>
+              <div class="format-choice d-flex flex-wrap gap-3">
+                <div class="form-check">
+                  <input class="form-check-input" id="import-csv" name="import_format" type="radio" value="csv" checked>
+                  <label class="form-check-label" for="import-csv">CSV</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" id="import-json" name="import_format" type="radio" value="json">
+                  <label class="form-check-label" for="import-json">JSON</label>
+                </div>
+              </div>
+            </fieldset>
+            <label class="form-label" for="import-file">Файл</label>
+            <input class="form-control" id="import-file" name="file" type="file" accept=".csv,.json,text/csv,application/json" aria-describedby="import-file-help">
+            <div class="form-text" id="import-file-help">CSV или JSON в кодировке UTF-8, не больше 2 МБ.</div>
+            <p class="example-links">Примеры файлов: <a href="examples/checkins.csv" download>checkins.csv</a> · <a href="examples/checkins.json" download>checkins.json</a></p>
+            <button type="button" class="btn btn-primary">Проверить файл</button>
+          </form>
+        </section>
+      </div>
+      <div class="col-12 col-lg-5">
+        <section class="panel h-100" aria-labelledby="export-title">
+          <h2 class="section-title" id="export-title">Экспорт ваших выполнений</h2>
+          <p class="panel-lead">Скачайте все свои отметки «+1». Файл того же формата, что и для импорта, — его можно загрузить обратно.</p>
+          <fieldset class="mb-4">
+            <legend>Формат файла</legend>
+            <div class="format-choice d-flex flex-wrap gap-3">
+              <div class="form-check">
+                <input class="form-check-input" id="export-csv" name="export_format" type="radio" value="csv" checked>
+                <label class="form-check-label" for="export-csv">CSV</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" id="export-json" name="export_format" type="radio" value="json">
+                <label class="form-check-label" for="export-json">JSON</label>
+              </div>
+            </div>
+          </fieldset>
+          <a class="btn btn-primary" href="examples/checkins.csv" download>Скачать CSV</a>
+          <p class="demo-note">Демонстрационный файл: стенд отдаёт пример, а не ваши данные.</p>
+        </section>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="pagefoot">
+  <div class="container">
+    <div class="foot-grid row g-4">
+      <div class="col-12 col-md-4">
+        <h2>Ритм</h2>
+        <p>Учебный демостенд для лабораторных работ по веб-разработке. Все данные, имена и счётчики на этой странице — демонстрационные.</p>
+      </div>
+      <div class="col-12 col-md-4">
+        <h2>Разделы</h2>
+        <ul class="list-unstyled d-flex flex-column gap-2">
+          <li><a href="index.html">Привычки</a></li>
+          <li><a href="exchange.html">Импорт и экспорт</a></li>
+          <li><a href="login.html">Войти</a></li>
+          <li><a href="register.html">Регистрация</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-4">
+        <h2>Для преподавателей</h2>
+        <p>Верстка покрывает темы ЛР 1–6: разметку и HTTP, каталог с БД, формы и CRUD, файлы и обмен, cookies и сессии, вход и права доступа.</p>
+      </div>
+    </div>
+    <p class="foot-bottom">© 2026 «Ритм» — демонстрационный стенд для учебных целей. Разработка — <a href="https://www.intervolga.ru/">ИНТЕРВОЛГА</a>.</p>
+  </div>
+</footer>
+
+<a class="to-top" href="#top" id="to-top" aria-label="Наверх страницы">
+  <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V6M6 12l6-6 6 6"/></svg>
+</a>
+
+<script src="assets/js/to-top.js"></script>
+
+</body>
+</html>

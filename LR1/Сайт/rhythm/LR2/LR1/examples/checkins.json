@@ -1,0 +1,26 @@
+[
+  {
+    "habit_code": "water",
+    "completed_at": "2026-09-10T08:15:00+03:00"
+  },
+  {
+    "habit_code": "water",
+    "completed_at": "2026-09-10T13:40:00+03:00"
+  },
+  {
+    "habit_code": "reading",
+    "completed_at": "2026-09-10T21:05:00+03:00"
+  },
+  {
+    "habit_code": "bedmaking",
+    "completed_at": "2026-09-11T07:20:00+03:00"
+  },
+  {
+    "habit_code": "english",
+    "completed_at": "2026-09-11T07:55:00+03:00"
+  },
+  {
+    "habit_code": "water",
+    "completed_at": "2026-09-11T09:30:00+03:00"
+  }
+]

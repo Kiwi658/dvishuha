@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Пить воду — Ритм</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<!-- Bootstrap подключается первым, тема стенда — после него и переопределяет нужное -->
+<link rel="stylesheet" href="assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/theme.css">
+</head>
+<body id="top">
+
+<header class="page-head navbar navbar-expand-lg">
+  <div class="container head-inner d-flex flex-wrap align-items-center gap-3">
+    <a class="brand d-inline-flex align-items-center gap-2" href="index.html" aria-label="Ритм — на главную">
+      <svg width="34" height="34" class="logo-mark" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+        <circle class="cycle" cx="17" cy="17" r="12.1" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+        <g class="beats" fill="currentColor">
+          <rect x="9.8" y="18" width="3.4" height="5" rx="1.7"/>
+          <rect x="15.3" y="14.5" width="3.4" height="8.5" rx="1.7"/>
+          <rect x="20.8" y="11.5" width="3.4" height="11.5" rx="1.7"/>
+        </g>
+        <circle class="beat-now" cx="25.9" cy="8.8" r="2.7" fill="var(--accent)"/>
+      </svg>
+      <span class="brand-name">Ритм</span>
+    </a>
+    <nav aria-label="Основное меню">
+      <ul class="nav mainnav gap-4">
+        <li class="nav-item"><a class="nav-link" href="index.html" aria-current="true">Привычки</a></li>
+        <li class="nav-item"><a class="nav-link" href="exchange.html">Импорт и экспорт</a></li>
+      </ul>
+    </nav>
+    <div class="userbox d-flex align-items-center gap-2 ms-auto">
+      <span class="who">Марина Ковалёва</span>
+      <button type="button" class="btn btn-neutral btn-sm">Выйти</button>
+    </div>
+  </div>
+</header>
+
+<main class="page" data-cat="health">
+
+<section class="hero hero--compact">
+  <div class="container hero-inner">
+    <a class="back-link" href="index.html"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 17l-5-5 5-5M20 12H6"/></svg> К списку привычек</a>
+    <h1 class="habit-title d-flex align-items-center gap-3"><span class="habit-icon"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3C12 3 6 10.5 6 15a6 6 0 0 0 12 0c0-4.5-6-12-6-12Z"/></svg></span>Пить воду</h1>
+  </div>
+  <div class="hero-spacer"></div>
+</section>
+
+<section class="band">
+  <div class="container page-body">
+    <div class="row g-4">
+      <div class="col-12 col-lg-7">
+        <figure class="habit-figure">
+          <img width="1586" height="992" class="img-fluid" src="assets/img/habit-water-16bit.png" alt="Пиксель-арт: стакан свежей воды на столе у окна">
+          <figcaption>Стакан воды на виду — самый простой способ не забывать о привычке.</figcaption>
+        </figure>
+      </div>
+      <div class="col-12 col-lg-5">
+        <div class="panel habit-info h-100 d-flex flex-column gap-3">
+          <p class="card-meta"><span class="cat-name">Здоровье</span></p>
+          <p class="desc">Выпивать достаточно воды в течение дня для самочувствия и концентрации. Не нужно считать литры: отмечайте «+1» за каждый выпитый стакан, а норму подскажет собственное самочувствие.</p>
+          <div class="counters d-flex flex-wrap gap-4">
+            <span>Придерживаются<b>342</b></span>
+            <span>Выполнено всеми<b>12 480</b></span>
+          </div>
+          <div class="card-actions d-flex flex-wrap align-items-center">
+            <button type="button" class="btn btn-positive btn-count position-relative" aria-label="Отметить выполнение привычки «Пить воду»" aria-describedby="count-habit-water" title="Выполнено вами: 27">+1<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-bg-dark" id="count-habit-water"><span class="visually-hidden">Выполнено вами: </span>27</span></button>
+            <button type="button" class="btn btn-neutral ms-auto">Бросить</button>
+          </div>
+          <p class="last-done">Последнее «+1»: сегодня, 08:40</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="habit-comments" id="comments" aria-labelledby="comments-title">
+      <h2 class="section-title" id="comments-title">Комментарии <span class="count">14</span></h2>
+      <div class="row g-4">
+        <div class="col-12 col-lg-7">
+          <ol class="comment-list list-unstyled">
+            <li class="comment-item comment-item--own">
+              <div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Марина Ковалёва</span><span class="badge bg-primary-subtle text-primary-emphasis">Ваш комментарий</span><time datetime="2026-09-09">9 сентября</time></div>
+              <p>Уже неделя без пропусков, стало проще вставать утром.</p>
+              <div class="comment-actions d-flex flex-wrap gap-2">
+                <a class="btn btn-neutral btn-sm" href="403.html">Редактировать</a>
+                <a class="btn btn-danger btn-sm" href="403.html">Удалить</a>
+              </div>
+            </li>
+            <li class="comment-item">
+              <div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Игорь Седов</span><time datetime="2026-09-08">8 сентября</time></div>
+              <p>Поставил бутылку на рабочий стол — пью, даже не задумываясь.</p>
+            </li>
+            <li class="comment-item">
+              <div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Александра Константинопольская-Ветрова</span><time datetime="2026-09-07">7 сентября</time></div>
+              <p>Первую неделю казалось, что пью через силу, и счётчик «+1» спасал: видно, что стакан за стаканом набирается норма.</p>
+              <p>Сейчас отмечаю по привычке, а голова к вечеру заметно меньше болит. Главное — не пить всё сразу перед сном.</p>
+            </li>
+            <li class="comment-item">
+              <div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Ольга Панова</span><time datetime="2026-09-05">5 сентября</time></div>
+              <p>Добавила лимон и мяту, так гораздо приятнее.</p>
+            </li>
+            <li class="comment-item">
+              <div class="meta d-flex flex-wrap align-items-center gap-2"><span class="who">Павел Реутов</span><time datetime="2026-09-03">3 сентября</time></div>
+              <p>Напоминание в телефоне раз в два часа — лучший помощник.</p>
+            </li>
+          </ol>
+          <nav class="pager d-flex justify-content-center justify-content-start pb-0" aria-label="Страницы комментариев">
+            <ul class="pagination">
+              <li class="page-item disabled"><span class="page-link" aria-hidden="true">←</span></li>
+              <li class="page-item active" aria-current="page"><span class="page-link">1</span></li>
+              <li class="page-item"><a class="page-link" href="habit.html#comments">2</a></li>
+              <li class="page-item"><a class="page-link" href="habit.html#comments">3</a></li>
+              <li class="page-item"><a class="page-link" href="habit.html#comments" aria-label="Следующая страница">→</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="col-12 col-lg-5">
+          <form class="panel" action="habit.html#comments" method="post">
+            <h3 class="h5 mb-3">Новый комментарий</h3>
+            <label class="form-label" for="comment-text">Комментарий</label>
+            <textarea class="form-control" id="comment-text" name="text" rows="5" required aria-describedby="comment-help"></textarea>
+            <div class="form-text" id="comment-help">Комментарий увидят все посетители каталога.</div>
+            <button type="button" class="btn btn-primary mt-3">Отправить</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<div class="container">
+  <section class="recent">
+    <h2>Недавно просмотренные привычки</h2>
+    <div class="recent-row d-flex align-items-start gap-3">
+      <ul class="recent-list list-unstyled d-flex flex-nowrap gap-3 overflow-x-auto">
+        <li><span class="rthumb"><img width="1586" height="992" class="img-fluid" src="assets/img/habit-cleaning-16bit.png" alt=""></span><a href="habit.html">Уборка за собой сразу</a></li>
+        <li><span class="rthumb"><img width="1587" height="991" class="img-fluid" src="assets/img/habit-exercise-16bit.png" alt=""></span><a href="habit.html">Утренняя зарядка</a></li>
+      </ul>
+      <button type="button" class="btn btn-neutral btn-icon" aria-label="Очистить историю просмотров" title="Очистить историю просмотров"><svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></button>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer class="pagefoot">
+  <div class="container">
+    <div class="foot-grid row g-4">
+      <div class="col-12 col-md-4">
+        <h2>Ритм</h2>
+        <p>Учебный демостенд для лабораторных работ по веб-разработке. Все данные, имена и счётчики на этой странице — демонстрационные.</p>
+      </div>
+      <div class="col-12 col-md-4">
+        <h2>Разделы</h2>
+        <ul class="list-unstyled d-flex flex-column gap-2">
+          <li><a href="index.html">Привычки</a></li>
+          <li><a href="exchange.html">Импорт и экспорт</a></li>
+          <li><a href="login.html">Войти</a></li>
+          <li><a href="register.html">Регистрация</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-4">
+        <h2>Для преподавателей</h2>
+        <p>Верстка покрывает темы ЛР 1–6: разметку и HTTP, каталог с БД, формы и CRUD, файлы и обмен, cookies и сессии, вход и права доступа.</p>
+      </div>
+    </div>
+    <p class="foot-bottom">© 2026 «Ритм» — демонстрационный стенд для учебных целей. Разработка — <a href="https://www.intervolga.ru/">ИНТЕРВОЛГА</a>.</p>
+  </div>
+</footer>
+
+<a class="to-top" href="#top" id="to-top" aria-label="Наверх страницы">
+  <svg width="24" height="24" class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V6M6 12l6-6 6 6"/></svg>
+</a>
+
+<script src="assets/js/to-top.js"></script>
+
+<script src="assets/js/recent-scroll.js"></script>
+
+</body>
+</html>
