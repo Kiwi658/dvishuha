@@ -4,7 +4,7 @@
 
 // Подключение к базе. Значения подходят для XAMPP: MariaDB на этом же компьютере,
 // пользователь root без пароля.
-const DB_DSN = 'mysql:host=localhost;dbname=rhythm;charset=utf8mb4';
+const DB_DSN = 'mysql:host=localhost;dbname=pizza;charset=utf8mb4';
 const DB_USER = 'root';
 const DB_PASSWORD = '';
 
@@ -12,4 +12,4 @@ const DB_PASSWORD = '';
 // по http://localhost/, здесь '/'; если по http://localhost/LR2/ — '/LR2/'.
 // От него строятся ссылки на главную, адреса стилей, картинок и скриптов на любой странице,
 // в том числе в папке admin/.
-const SITE_DIR = '/LR2/';
+const SITE_DIR = '/dv1shuha/LR1/Сайт/rhythm/LR2/';

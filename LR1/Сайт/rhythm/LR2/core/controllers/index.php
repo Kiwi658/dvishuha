@@ -12,10 +12,8 @@
 
 $q = query_param('q');
 $categoryId = query_int('category_id', 1);
-$followersMin = query_int('followers_min', 0);
-$followersMax = query_int('followers_max', 0);
-$doneMin = query_int('done_min', 0);
-$doneMax = query_int('done_max', 0);
+$priceMin = query_int('price_min', 0);
+$priceMax = query_int('price_max', 0);
 
 // ---------- 2. Условия WHERE собираются по частям ----------
 // В запрос попадает только то, что посетитель действительно задал.
@@ -25,53 +23,46 @@ $where = [];
 $params = [];
 
 if (strlen($q)) {
-    $where[] = 'habits.title LIKE :q';
+    $where[] = 'menu_items.name LIKE :q';
     $params['q'] = '%' . $q . '%';
 }
 if (intval($categoryId)) {
-    $where[] = 'habits.category_id = :category_id';
+    $where[] = 'menu_items.category_id = :category_id';
     $params['category_id'] = $categoryId;
 }
 
 // Диапазоны: условие добавляется, только если в поле целое число больше нуля.
 // Ноль в границе пропускается так же, как пустое поле
-if (intval($followersMin)) {
-    $where[] = 'habits.followers_count >= :followers_min';
-    $params['followers_min'] = $followersMin;
+
+// Диапазон цены
+if (intval($priceMin)) {
+    $where[] = 'menu_items.price >= :price_min';
+    $params['price_min'] = $priceMin;
 }
-if (intval($followersMax)) {
-    $where[] = 'habits.followers_count <= :followers_max';
-    $params['followers_max'] = $followersMax;
-}
-if (intval($doneMin)) {
-    $where[] = 'habits.done_count >= :done_min';
-    $params['done_min'] = $doneMin;
-}
-if (intval($doneMax)) {
-    $where[] = 'habits.done_count <= :done_max';
-    $params['done_max'] = $doneMax;
+if (intval($priceMax)) {
+    $where[] = 'menu_items.price <= :price_max';
+    $params['price_max'] = $priceMax;
 }
 
 // ---------- 3. Запросы к базе ----------
 
-// Название и код оформления категории приходят из справочника categories через JOIN
-$sql = 'SELECT habits.id, habits.title, habits.description, habits.image_file, habits.image_alt,
-               habits.followers_count, habits.done_count,
-               categories.title AS category_title, categories.code AS category_code
-        FROM habits
-        INNER JOIN categories ON categories.id = habits.category_id';
+$sql = 'SELECT menu_items.id, menu_items.name, menu_items.recipe, menu_items.price, menu_items.image,
+               categories.name AS category_name
+        FROM menu_items
+        INNER JOIN categories ON categories.id = menu_items.category_id';
+
 if (count($where)) {
     $sql .= ' WHERE ' . implode(' AND ', $where);
 }
-// Порядок постоянный: выбор сортировки посетителем — задание на дополнительные баллы
-$sql .= ' ORDER BY habits.title ASC';
+
+$sql .= ' ORDER BY menu_items.name ASC';
 
 $statement = db()->prepare($sql);
 $statement->execute($params);
-$habits = $statement->fetchAll();
+$menuItems = $statement->fetchAll();
 
-// Варианты списка — все строки справочника: в value номер категории, в тексте её название
-$categories = db()->query('SELECT id, title FROM categories ORDER BY title')->fetchAll();
+// Все категории для выпадающего списка
+$categories = db()->query('SELECT id, name FROM categories ORDER BY name')->fetchAll();
 
 $isFiltered = count($where) > 0;
-$found = count($habits);
+$found = count($menuItems);
